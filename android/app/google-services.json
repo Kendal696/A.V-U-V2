@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "117795933158",
+    "project_id": "avu-avu-bb80d",
+    "storage_bucket": "avu-avu-bb80d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117795933158:android:8abf4c070a2110fecb6427",
+        "android_client_info": {
+          "package_name": "com.example.avu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2S1IgcAe2S2JiAGvZpM0v1GLq3SWuOGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
