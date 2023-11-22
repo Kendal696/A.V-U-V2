@@ -1,28 +1,24 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:avu/main.dart';
-import 'package:avu/screens/cuenta.dart';
 import 'package:avu/screens/sugestions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({super.key});
+class SettingsVisitante extends StatefulWidget {
+  const SettingsVisitante({super.key});
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<SettingsVisitante> createState() => _SettingsVisitanteState();
 }
 
-class _SettingsState extends State<Settings> {
-  bool notificacionesValue = false; // Valor del checkbox de notificaciones
-  bool reconocimientoFacialValue = false; // Valor del checkbox de reconocimiento facial
-  bool temaSwitchValue = false; // Valor del switch de tema
-  double volumenValue = 0.5; // Valor de ajuste de volumen
+class _SettingsVisitanteState extends State<SettingsVisitante> {
+  bool temaSwitchValue = false;
+  double volumenValue = 0.5;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.all(20.0),
@@ -44,58 +40,6 @@ class _SettingsState extends State<Settings> {
                 ),
               ),
               const SizedBox(height: 70,),
-              // Notificaciones
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 261,
-                    child: Text(
-                      'Notificaciones',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  Checkbox(
-                    value: notificacionesValue,
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        notificacionesValue = newValue!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 261,
-                    child: Text(
-                      'Reconocimiento Facial',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  Checkbox(
-                    value: reconocimientoFacialValue,
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        reconocimientoFacialValue = newValue!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-
               // Tema
               Row(
                 children: [
@@ -173,49 +117,7 @@ class _SettingsState extends State<Settings> {
               ),
               const SizedBox(height: 170,),
               Center(
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                        );
-                      },
-                      child: Container(
-                        width: 214,
-                        height: 40,
-                        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        child: const Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 189,
-                              child: Text(
-                                'Cuenta',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF9E0044),
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                          ElevatedButton(
+                child:   ElevatedButton(
                       onPressed: () async {
                         // Cerrar sesión
                         await FirebaseAuth.instance.signOut();
@@ -248,14 +150,11 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ),
-                  ],
-                ),
               ),
             ],
           ),
         ),
       ),
     );
- 
   }
 }

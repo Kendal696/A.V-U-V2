@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, avoid_print
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +13,7 @@ class SuggestionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController questionController = TextEditingController();
     final TextEditingController answerController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController(); // Nuevo controlador para el número de teléfono
+    final TextEditingController phoneController = TextEditingController();
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
     return Scaffold(
@@ -132,7 +134,9 @@ class SuggestionsScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   final User? user = FirebaseAuth.instance.currentUser;
+                   String userId = user?.uid ?? 'Visitante${Random().nextInt(100000)}';
                   if (user == null) {
+                    
                     return;
                   }
 
@@ -140,13 +144,24 @@ class SuggestionsScreen extends StatelessWidget {
                   String answer = answerController.text;
                   String phoneNumber = phoneController.text;
 
-                  Map<String, dynamic> data = {
-                    'question': question,
-                    'answer': answer,
-                    'phoneNumber': phoneNumber,
-                    'userId': user.uid,
-                    'sent': FieldValue.serverTimestamp(),
-                  };
+                  if (question.isEmpty || answer.isEmpty) {
+                    // Mostrar mensaje de error si los campos de pregunta y respuesta están vacíos
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Por favor, llena los campos de pregunta y respuesta.'),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                    return;
+                  }
+
+                    Map<String, dynamic> data = {
+      'question': question,
+      'answer': answer,
+      'phoneNumber': phoneNumber,
+      'userId': userId,
+      'sent': FieldValue.serverTimestamp(),
+    };
 
                   try {
                     await _firestore.collection('faqsSuggestions').add(data);

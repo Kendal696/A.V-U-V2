@@ -20,10 +20,21 @@ class _NewPasswordState extends State<NewPassword> {
     try {
       final user = _auth.currentUser;
 
-      //Guardar los datos escritos por el usuario
+      // Obtener las contraseñas ingresadas por el usuario
       final newPassword = _passwordController.text;
       final confirmPassword = _confirmPasswordController.text;
 
+      // Validar que los campos no estén vacíos
+      if (newPassword.isEmpty || confirmPassword.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Por favor, completa ambos campos.'),
+          ),
+        );
+        return;
+      }
+
+      // Validar que las contraseñas coincidan
       if (newPassword == confirmPassword) {
         await user!.updatePassword(newPassword);
 
@@ -82,7 +93,7 @@ class _NewPasswordState extends State<NewPassword> {
             const SizedBox(height: 20),
             const SizedBox(
               child: Text(
-                'Ingresa una contraseña que te acuerdes esta vez  :)',
+                'Ingresa una contraseña que te acuerdes esta vez :)',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
