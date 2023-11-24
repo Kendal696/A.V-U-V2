@@ -219,12 +219,12 @@ class EventDetailScreen extends StatelessWidget {
   }
 
  void _openFormUrl(BuildContext context, String formsURL) async {
-  String url = 'youtube.com';
-  Uri uri= Uri.parse(url);
+
+  Uri uri= Uri.parse(formsURL);
 
 
   if (await canLaunchUrl(uri)) {
-    await launchUrl(uri);
+    await launchUrl(uri,mode: LaunchMode.externalApplication,);
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

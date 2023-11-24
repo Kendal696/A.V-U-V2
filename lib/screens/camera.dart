@@ -24,12 +24,16 @@ class _CameraState extends State<Camera> {
     cameras = await availableCameras();
     if (cameras.isNotEmpty) {
       controller = CameraController(cameras[0], ResolutionPreset.medium);
-      controller!.initialize().then((_) {
-        if (!mounted) {
-          return;
-        }
-        setState(() {});
-      });
+      try {
+        await controller!.initialize();
+      } catch (e) {
+        print('Error initializing camera: $e');
+      }
+
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
     }
   }
 
@@ -41,13 +45,20 @@ class _CameraState extends State<Camera> {
 
   @override
   Widget build(BuildContext context) {
-    if (!controller!.value.isInitialized) {
-      return Container(); 
+    if (controller == null || !controller!.value.isInitialized) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Camera'),
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Camara'),
+        title: const Text('Camera'),
       ),
       body: Center(
         child: Column(
@@ -59,12 +70,9 @@ class _CameraState extends State<Camera> {
               child: CameraPreview(controller!),
             ),
             const SizedBox(height: 20),
-           
           ],
         ),
       ),
     );
   }
-
-  
 }

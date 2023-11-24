@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,6 +12,7 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   TextEditingController emailController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
@@ -23,19 +23,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Future<void> resetPassword() async {
     String email = emailController.text.trim();
 
+    if (email.isEmpty){
+      showSnackbar("Llena los campos");
+    }
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      // Show a success message or navigate to another screen
-      if (kDebugMode) {
-        print("Password reset email sent to $email");
-      }
+      showSnackbar("Se ha enviado un correo electrónico para restablecer la contraseña.");
     } catch (error) {
-      // Handle errors, you might want to show an error message to the user
-      if (kDebugMode) {
-        print("Error sending password reset email: $error");
-      }
+      showSnackbar("Error al enviar el correo electrónico de restablecimiento de contraseña: $error");
     }
   }
+
+  void showSnackbar(String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 5),
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('Olvidé mi contraseña'),
         backgroundColor: const Color(0xFF9E0044),
@@ -58,9 +66,24 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             SizedBox(height: screenHeight * 0.1),
             const SizedBox(
               width: 300,
+              height: 50,
+              child: Text(
+                'Restablecer ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF9E0044),
+                  fontSize: 30,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700,
+                  height: 0.05,
+                ),
+              ),
+            ),           
+            const SizedBox(
+              width: 300,
               height: 70,
               child: Text(
-                'Restablecer \n Contraseña',
+                ' Contraseña',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFF9E0044),
