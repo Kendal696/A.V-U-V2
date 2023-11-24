@@ -331,7 +331,7 @@ Widget build(BuildContext context) {
               final description = event['description'] as String;
               final date = event['date'] as Timestamp;
               final imageUrl = event['imageUrl'] as String;
-              final formUrl= event['formularioUrl'] as String;
+              final formUrl= event['formularioURL'] as String;
               final documentId = event.id;
 
               return Card(

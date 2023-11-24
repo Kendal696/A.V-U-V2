@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class Events extends StatefulWidget {
   const Events({super.key});
 
@@ -204,7 +205,7 @@ class EventDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  _openFormUrl(context, formUrl!);
+                  _launchInBrowserView(formUrl!);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF9E0044),
@@ -218,19 +219,11 @@ class EventDetailScreen extends StatelessWidget {
     );
   }
 
- void _openFormUrl(BuildContext context, String formsURL) async {
-
-  Uri uri= Uri.parse(formsURL);
-
-
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri,mode: LaunchMode.externalApplication,);
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('No se pudo abrir la URL'),
-      ),
-    );
+  Future<void> _launchInBrowserView(String formsURL) async {
+    Uri url= Uri.parse(formsURL);
+    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
+      throw Exception('Could not launch $url');
+    }
   }
-}
+
 }
