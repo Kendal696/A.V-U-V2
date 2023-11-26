@@ -141,49 +141,49 @@ class _LogInState extends State<LogIn> {
               ),
 ElevatedButton(
   onPressed: () async {
-    final enteredEmail = emailController.text;
-    final enteredPassword = passwordController.text;
+  final enteredEmail = emailController.text;
+final enteredPassword = passwordController.text;
 
-    if (enteredEmail == 'admin@gmail.com' && enteredPassword == 'admin123456') {
-      // Navigate to the admin screen
-      // Replace 'AdminScreen' with the screen for admin users
+try {
+  final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: enteredEmail,
+    password: enteredPassword,
+  );
+
+  final user = userCredential.user;
+
+  if (user != null) {
+    if (user.email == 'admin@gmail.com' && enteredPassword == 'admin123456') {
+      // Si las credenciales coinciden con el usuario administrador, redirige a la pantalla de administrador
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const BottomAdmin()),
       );
     } else {
-      try {
-        final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: enteredEmail,
-          password: enteredPassword,
-        );
-
-        final user = userCredential.user;
-
-        if (user != null) {
-          Navigator.of(context).pushReplacement(
+      // Si no es el usuario administrador, redirige a la pantalla de usuario normal
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const BottomUser()),
       );
-        }
-      } catch (e) {
-        // Handle login errors
-        String errorMessage = 'Error during login.';
-        if (e is FirebaseAuthException) {
-          if (e.code == 'user-not-found') {
-            errorMessage = 'User not found. Please register first.';
-          } else if (e.code == 'wrong-password') {
-            errorMessage = 'Incorrect password. Please try again.';
-          }
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorMessage),
-          ),
-        );
-        print('Error during login: $e');
-      }
     }
-  },
+  }
+} catch (e) {
+  String errorMessage = 'Error durante el inicio de sesión.';
+  if (e is FirebaseAuthException) {
+    if (e.code == 'user-not-found') {
+      errorMessage = 'Usuario no encontrado. Regístrese primero.';
+    } else if (e.code == 'wrong-password') {
+      errorMessage = 'Contraseña incorrecta. Inténtelo de nuevo.';
+    }
+  }
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(errorMessage),
+    ),
+  );
+  print('Error during login: $e');
+}
+},
+
   
 
 

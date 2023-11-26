@@ -26,10 +26,21 @@ class FAQ extends StatelessWidget {
               ),
               SizedBox(height: 24),
               Text(
-                'Si no encuentras tu pregunta aqui, por favor acercate a Administración',
+                'Dirigete a Administración para  ',
                 style: TextStyle(
                   color: Color(0xFF9E0044),
-                  fontSize: 30,
+                  fontSize: 20,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700,
+                  height: 0.05,
+                ),
+              ),
+              SizedBox(height: 24),
+              Text(
+                ' más información ',
+                style: TextStyle(
+                  color: Color(0xFF9E0044),
+                  fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
                   height: 0.05,

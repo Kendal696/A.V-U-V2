@@ -1,10 +1,11 @@
-// ignore_for_file: file_names, unnecessary_null_comparison, avoid_print, unused_import
+// ignore_for_file: file_names, use_key_in_widget_constructors, library_private_types_in_public_api, unnecessary_string_interpolations, use_rethrow_when_possible
 
-import 'package:avu/adminScreens/bottom.dart';
-import 'package:camera/camera.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+import 'package:avu/adminScreens/eventManagement.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EventsManagement extends StatefulWidget {
   const EventsManagement({super.key});
@@ -14,490 +15,223 @@ class EventsManagement extends StatefulWidget {
 }
 
 class _EventsManagementState extends State<EventsManagement> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-   final TextEditingController imageUrlController = TextEditingController();
-   final TextEditingController formsUrlController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  DateTime? selectedDate;
-  TimeOfDay? selectedTime;
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = (await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    ))!;
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay picked = (await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    ))!;
-    if (picked != null && picked != selectedTime) {
-      setState(() {
-        selectedTime = picked;
-      });
-    }
-  }
-
-  DateTime? combineDateAndTime(DateTime? date, TimeOfDay? time) {
-    if (date != null && time != null) {
-      return DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-          title: const Text('Eventos'),
-          backgroundColor: const Color(0xFF9E0044),
-        ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                height: 45,
-                color: const Color.fromARGB(255, 255, 255, 255),
-              ),
-              const Text(
-                'Agregar Eventos',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 30,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 0.05,
-                ),
-              ),
-              const SizedBox(height: 40),
-              const Text(
-                'Nombre',
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextFormField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                    hintText: 'Ingrese el nombre del evento ...',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Descripción',
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextFormField(
-                  controller: descriptionController,
-                  decoration: const InputDecoration(
-                    hintText: 'Ingrese la decripción del evento...',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Fecha',
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    _selectDate(context);
-                    _selectTime(context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: selectedDate == null || selectedTime == null
-                        ? const Text(
-                            'Selecciona fecha y hora',
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        : Text(
-                            '${selectedDate!.toLocal()} ${selectedTime!.format(context)}',
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                  ),
-                ),
-              ),
-               const SizedBox(height: 20),
-              const Text(
-                'URL de la Imagen',
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextFormField(
-                  controller: imageUrlController,
-                  decoration: const InputDecoration(
-                    hintText: 'Ingrese el URL de la imagen aqui',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'URL del Formulario',
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextFormField(
-                  controller: formsUrlController,
-                  decoration: const InputDecoration(
-                    hintText: 'Ingrese el URL del formulario',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  final User? user = FirebaseAuth.instance.currentUser;
-                  if (user == null) {
-                    return;
-                  }
-                  String name = nameController.text;
-                  String description = descriptionController.text;
-                  String imageUrl = imageUrlController.text;
-                  String formsURL = formsUrlController.text;
-                  DateTime? selectedDateTime = combineDateAndTime(selectedDate, selectedTime);
-
-                  if (selectedDateTime == null) {
-                    
-                    return;
-                  }
-
-                  Timestamp date = Timestamp.fromDate(selectedDateTime);
-
-                  Map<String, dynamic> data = {
-                    'name': name,
-                    'description': description,
-                    'date': date,
-                    'imageUrl':imageUrl,
-                    'formularioURL': formsURL,
-
-                    'userId': user.uid,
-                  };
-
-                  try {
-                    await _firestore.collection('events').add(data);
-                    print('Success!');
-                  } catch (e) {
-                    print('Error submitting data to Firestore: $e');
-                  }
-
-                  
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF9E0044),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: const Text(
-                  'Agregar evento',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
-                    height: 1.5,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF9E0044),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const EventsManagementScreen()),
-                    );
-                  },
-                  child: const Text('Manejo de Eventos'),
-                ),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: const Text('Gestión de Eventos'),
+        backgroundColor: const Color(0xFF9E0044),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: EventForm(),
       ),
     );
   }
 }
 
-class EventsManagementScreen extends StatelessWidget {
-  const EventsManagementScreen({super.key});
+class EventForm extends StatefulWidget {
+  @override
+  _EventFormState createState() => _EventFormState();
+}
+
+class _EventFormState extends State<EventForm> {
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _descripcionController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  TimeOfDay _selectedTime = TimeOfDay.now();
+  File? _selectedImage;
+  final TextEditingController _formularioUrlController = TextEditingController();
+
+  final Color _color = const Color(0xFF9E0044);
+
+  void _mostrarMensaje(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Future<void> _seleccionarFecha() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _seleccionarHora() async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+    );
+
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+      });
+    }
+  }
+
+  Future<void> _seleccionarImagen() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
+
+ Future<String> _subirImagenAFirebaseStorage(File imagen) async {
+  try {
+    final storageReference = FirebaseStorage.instance
+        .ref()
+        .child('imagenes_eventos/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+    await storageReference.putFile(imagen);
+
+    final downloadURL = await storageReference.getDownloadURL();
+    return downloadURL;
+  } catch (error) {
+    throw error;
+  }
+}
+
+void _agregarEvento() async {
+  try {
+    DateTime selectedDateTime = DateTime(
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
+      _selectedTime.hour,
+      _selectedTime.minute,
+    );
+
+    String imageUrl = '';
+
+    if (_selectedImage != null) {
+      imageUrl = await _subirImagenAFirebaseStorage(_selectedImage!);
+    }
+
+    await FirebaseFirestore.instance.collection('events').add({
+      'nombre': _nombreController.text,
+      'descripcion': _descripcionController.text,
+      'fecha': selectedDateTime,
+      'imagenUrl': imageUrl,
+      'formularioUrl': _formularioUrlController.text,
+    });
+
+    _mostrarMensaje('Evento agregado con éxito');
+    _limpiarCampos();
+  } catch (error) {
+    _mostrarMensaje('Error al agregar el evento: $error');
+  }
+}
+
+void _limpiarCampos() {
+  _nombreController.clear();
+  _descripcionController.clear();
+  _selectedDate = DateTime.now();
+  _selectedTime = TimeOfDay.now();
+  _selectedImage == null; 
+  _formularioUrlController.clear();
+}
+
 
   @override
-Widget build(BuildContext context) {
-  return WillPopScope(
-    onWillPop: () async {
-      return await _onBackPressed(context);
-    },
-    child: Scaffold(
-      appBar: AppBar(
-        title: const Text('Manejo de eventos'),
-        backgroundColor: const Color(0xFF9E0044),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('events').snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
-          }
-
-          final events = snapshot.data!.docs;
-
-          return ListView.builder(
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              final event = events[index];
-              final name = event['name'] as String;
-              final description = event['description'] as String;
-              final date = event['date'] as Timestamp;
-              final imageUrl = event['imageUrl'] as String;
-              final formUrl= event['formularioURL'] as String;
-              final documentId = event.id;
-
-              return Card(
-                child: ListTile(
-                  title: Text(name),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(description),
-                      Text('Fecha: ${date.toDate().toString()}'),
-                      //Image.network(imageUrl),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          openEditDialog(context, documentId, name, description, date, imageUrl, formUrl);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          deleteEvent(documentId);
-                        },
-                      ),
-                    ],
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextFormField(
+            controller: _nombreController,
+            decoration: const InputDecoration(labelText: 'Nombre'),
+          ),
+          TextFormField(
+            controller: _descripcionController,
+            decoration: const InputDecoration(labelText: 'Descripción'),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  readOnly: true,
+                  onTap: _seleccionarFecha,
+                  decoration: const InputDecoration(labelText: 'Fecha'),
+                  controller: TextEditingController(
+                    text: "${_selectedDate.toLocal()}".split(' ')[0],
                   ),
                 ),
-              );
-            },
-          );
-        },
-      ),
-    ));
-  }
-
-  Future<bool> _onBackPressed(BuildContext context) async {
-  bool shouldPop = await showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Confirm Exit'),
-        content: const Text('Are you sure you want to exit?'),
-        actions: <Widget>[
-           TextButton(
-            onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const EventsManagementScreen()),
-                    ), 
-            child: const Text('No'),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: TextFormField(
+                  readOnly: true,
+                  onTap: _seleccionarHora,
+                  decoration: const InputDecoration(labelText: 'Hora'),
+                  controller: TextEditingController(
+                    text: "${_selectedTime.format(context)}",
+                  ),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () =>Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BottomAdmin()),
-                    ),
-            child: const Text('Yes'),
-          ),
-        ],
-      );
-    },
-  );
-
-  return shouldPop;
-}
-
-
-  
-void openEditDialog(BuildContext context, String documentId, String name, String description, Timestamp date, String imageUrl, String formsURL) {
-  String newName = name;
-  String newDescription = description;
-  DateTime newDate = date.toDate();
-  String newImageUrl = imageUrl;
-  String newFormsUrl = formsURL;
-
-  final dateController = TextEditingController(text: newDate.toString());
-  final imageUrlController = TextEditingController(text: newImageUrl);
-  final formsUrlController = TextEditingController(text: newFormsUrl);
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Editar Evento'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: 'Nuevo Nombre'),
-              onChanged: (value) {
-                newName = value;
-              },
-              controller: TextEditingController(text: name),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Nueva descripcion'),
-              onChanged: (value) {
-                newDescription = value;
-              },
-              controller: TextEditingController(text: description),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Nueva Fecha'),
-              controller: dateController,
-              onTap: () async {
-                final DateTime picked = (await showDatePicker(
-                  context: context,
-                  initialDate: newDate,
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2101),
-                ))!;
-                if (picked != null) {
-                  dateController.text = picked.toLocal().toString();
-                  newDate = picked;
-                }
-              },
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Nueva URL de la imagen'),
-              onChanged: (value) {
-                newImageUrl = value;
-              },
-              controller: imageUrlController,
-            ),
-             TextField(
-              decoration: const InputDecoration(labelText: 'Nueva URL del formulario'),
-              onChanged: (value) {
-                newFormsUrl = value;
-              },
-              controller: formsUrlController,
-            ),
-          ],
-        ),
-        actions: [
+          const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: () {
-              FirebaseFirestore.instance.collection('events').doc(documentId).update({
-                'name': newName,
-                'description': newDescription,
-                'date': Timestamp.fromDate(newDate),
-                'imageUrl': newImageUrl,
-                'formularioURL': newFormsUrl,
-              });
-              Navigator.of(context).pop();
-            },
-            child: const Text('Guardar'),
+            onPressed: _seleccionarImagen,
+            style: ElevatedButton.styleFrom(backgroundColor: _color),
+            child: const Text('Seleccionar Imagen'),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancelar'),
+          const SizedBox(height: 16.0),
+          if (_selectedImage != null)
+            Image.file(
+              _selectedImage!,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            )else(
+              const Icon ( Icons.camera)
+            ),
+          const SizedBox(height: 16.0),
+          TextFormField(
+            controller: _formularioUrlController,
+            decoration: const InputDecoration(labelText: 'URL del Formulario'),
+          ),
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: _agregarEvento,
+            style: ElevatedButton.styleFrom(backgroundColor: _color),
+            child: const Text('Agregar Evento'),
+          ),
+          ElevatedButton(
+            onPressed: _manejoEventos,
+            style: ElevatedButton.styleFrom(backgroundColor: _color),
+            child: const Text('Manejo de Eventos'),
           ),
         ],
-      );
-    },
-  );
-}
-
-}
-  
-
-  void deleteEvent(String documentId) {
-    FirebaseFirestore.instance.collection('events').doc(documentId).delete();
+      ),
+    );
   }
 
+  void _manejoEventos() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const EventsManagementScreen(),
+      ),
+    );
+
+  }
+}

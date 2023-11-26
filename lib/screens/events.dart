@@ -42,15 +42,15 @@ class _EventsState extends State<Events> {
             final event = snapshot.data!.docs[index];
             final data = event.data() as Map<String, dynamic>;
 
-            if (data.containsKey('date') &&
-                data.containsKey('description') &&
-                data.containsKey('name') &&
-                data.containsKey('imageUrl')) {
-              final date = data['date'] as Timestamp;
-              final description = data['description'] as String;
-              final name = data['name'] as String;
-              final imageUrl = data['imageUrl'] as String;
-              final formUrl = data['formularioURL'] as String?;
+            if (data.containsKey('fecha') &&
+                data.containsKey('descripcion') &&
+                data.containsKey('nombre') &&
+                data.containsKey('imagenUrl')) {
+              final date = data['fecha'] as Timestamp;
+              final description = data['descripcion'] as String;
+              final name = data['nombre'] as String;
+              final imageUrl = data['imagenUrl'] as String;
+              final formUrl = data['formularioUrl'] as String?;
 
             
 
@@ -197,7 +197,7 @@ class EventDetailScreen extends StatelessWidget {
           Image.network(
             imageUrl,
             fit: BoxFit.cover,
-            height: 200.0,
+            height: 600.0,
           ),
 
           if (formUrl != null)

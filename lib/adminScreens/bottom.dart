@@ -1,5 +1,6 @@
 import 'package:avu/adminScreens/addEvents.dart';
 import 'package:avu/adminScreens/addFaqs.dart';
+import 'package:avu/adminScreens/faqsSuggestions.dart';
 import 'package:avu/screens/home.dart';
 import 'package:avu/screens/settings.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,9 @@ class _BottomAdminState
           Home(),
           EventsManagement(),        
           AddFaqs(), 
+          FAQsSuggestions(),
           Settings(),
+
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -64,6 +67,11 @@ class _BottomAdminState
           BottomNavigationBarItem(
             icon: Icon(Icons.question_answer),
             label: 'FAQs',
+            backgroundColor:  Color(0xFF9E0044),
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Sugerencias FAQs',
             backgroundColor:  Color(0xFF9E0044),
           ),
           BottomNavigationBarItem( 
