@@ -39,7 +39,8 @@ class _NewPasswordState extends State<NewPassword> {
         await user!.updatePassword(newPassword);
 
         // Actualizar contraseña en firestore
-        final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+        final userRef =
+            FirebaseFirestore.instance.collection('users').doc(user.uid);
         await userRef.update({'password': newPassword});
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -113,6 +114,7 @@ class _NewPasswordState extends State<NewPassword> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
             const SizedBox(height: 20),
@@ -124,10 +126,10 @@ class _NewPasswordState extends State<NewPassword> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
+                prefixIcon: Icon(Icons.lock),
               ),
             ),
             const SizedBox(height: 20),
-            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: changePassword,
               style: ElevatedButton.styleFrom(
@@ -135,8 +137,17 @@ class _NewPasswordState extends State<NewPassword> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
+                minimumSize: Size(350,
+                    40), // Set the minimum width to the full width of the parent
+                padding: EdgeInsets.zero, // Remove any padding
               ),
-              child: const Text('Cambiar la contraseña'),
+              child: const Text(
+                'Cambiar la contraseña',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),

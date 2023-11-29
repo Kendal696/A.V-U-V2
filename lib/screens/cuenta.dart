@@ -60,6 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Image(image: AssetImage('assets/user2.png')),
                 SizedBox(
                   width: screenWidth * 0.7,
                   child: TextField(
@@ -69,13 +70,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: screenWidth * 0.043,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      height: 0.09,
+                      height: 1,
                     ),
                     decoration: const InputDecoration(
                       labelText: 'Nombre',
                     ),
                   ),
                 ),
+                SizedBox(
+                    height: 10), // Agrega otro espacio vertical de 20 puntos
                 SizedBox(
                   width: screenWidth * 0.7,
                   child: TextField(
@@ -85,19 +88,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: screenWidth * 0.043,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      height: 0.09,
+                      height: 1,
                     ),
                     decoration: const InputDecoration(
                       labelText: 'Email',
                     ),
                   ),
                 ),
+                const SizedBox(
+                    height: 20), // Agrega otro espacio vertical de 20 puntos
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF9E0044),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
+                    minimumSize: Size(screenWidth * 0.7, 40),
                   ),
                   onPressed: () {
                     // Actualizar
@@ -112,7 +118,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       });
                     }
                   },
-                  child: const Text('Cambiar perfil'),
+                  child: const Text(
+                    'Cambiar perfil',
+                    style: TextStyle(
+                      fontSize: 18, // Aumenta el tamaño de la letra a 18
+                    ),
+                  ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -120,15 +131,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
+                    minimumSize: Size(screenWidth * 0.7, 40),
                   ),
                   onPressed: () {
-
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const NewPassword()),
+                      MaterialPageRoute(
+                          builder: (context) => const NewPassword()),
                     );
                   },
-                  child: const Text('Cambiar Contraseña'),
+                  child: const Text(
+                    'Cambiar Contraseña',
+                    style: TextStyle(
+                      fontSize: 18, // Aumenta el tamaño de la letra a 18
+                    ),
+                  ),
                 ),
               ],
             ),

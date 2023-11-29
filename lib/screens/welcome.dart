@@ -1,14 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
-import 'package:avu/screens/bottomVisitante.dart';
+import 'package:avu/screens/bottom.dart';
 import 'package:avu/screens/log_in.dart';
 import 'package:avu/screens/sign_up.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class Welcome extends StatefulWidget {
-  const Welcome({super.key});
+  const Welcome({Key? key}) : super(key: key);
 
   @override
   _WelcomeState createState() => _WelcomeState();
@@ -21,8 +17,11 @@ class _WelcomeState extends State<Welcome> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.png'),
+            fit: BoxFit.cover,
+          ),
         ),
         child: SingleChildScrollView(
           child: Padding(
@@ -39,8 +38,8 @@ class _WelcomeState extends State<Welcome> {
                   child: Text(
                     'Hola, Bienvenido a A.V.U.',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
+                      color: Colors.white,
+                      fontSize: 25,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                       height: 0.06,
@@ -50,117 +49,103 @@ class _WelcomeState extends State<Welcome> {
                 const SizedBox(
                   height: 30,
                 ),
-                Image.asset('assets/logo.png'),
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.6, // Establecer el ancho del contenedor al 60% del ancho de la pantalla
+                  child: Image.asset('assets/logo_blanco.png'),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LogIn()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFCFCFC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.7, // Establecer el ancho del contenedor al 70% del ancho de la pantalla
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LogIn()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF9E0044),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical:
+                              12), // Aumentar el tamaño vertical del botón
                     ),
-                  ),
-                  child: const Text(
-                    'Iniciar Sesión',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      height: 1.4285714286,
-                      color: Color(0xFF9E0044),
+                    child: const Text(
+                      'Iniciar Sesión',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18, // Aumentar el tamaño de la letra
+                        fontWeight: FontWeight.w700,
+                        height: 1.4285714286,
+                        color: Color(0xFFFFFFFF),
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.7, // Establecer el ancho del contenedor al 70% del ancho de la pantalla
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BottomUser()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFA7A9AC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical:
+                              12), // Aumentar el tamaño vertical del botón
+                    ),
+                    child: const Text(
+                      'Visitante',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18, // Aumentar el tamaño de la letra
+                        fontWeight: FontWeight.w700,
+                        height: 1.4285714286,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const SignUp()),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF9E0044),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
                   child: const Text(
-                    'Registrarse',
+                    'No tienes cuenta?, Registrate aquí',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 18, // Aumentar el tamaño de la letra
                       fontWeight: FontWeight.w700,
                       height: 1.4285714286,
-                      color: Color(0xFFFCFCFC),
+                      color: Color(0xFFFFFFFF),
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: 'visitante@example.com', // Reemplaza con el email del usuario "Visitante"
-                        password: 'contraseña', // Reemplaza con la contraseña del usuario "Visitante"
-                      );
-
-                      final user = userCredential.user;
-
-                      if (user != null) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const BottomVisitante()),
-                        );
-                      }
-                    } catch (e) {
-                      // Manejar errores de inicio de sesión
-                      String errorMessage = 'Error durante el inicio de sesión.';
-                      if (e is FirebaseAuthException) {
-                        if (e.code == 'user-not-found') {
-                          errorMessage = 'Usuario no encontrado. Regístrate primero.';
-                        } else if (e.code == 'wrong-password') {
-                          errorMessage = 'Contraseña incorrecta. Inténtalo de nuevo.';
-                        }
-                      }
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(errorMessage),
-                        ),
-                      );
-                      if (kDebugMode) {
-                        print('Error durante el inicio de sesión: $e');
-                      }
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFCFCFC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  child: const Text(
-                    'Visitante',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      height: 1.4285714286,
-                      color: Color(0xFF9E0044),
-                    ),
-                  ),
                 ),
               ],
             ),

@@ -28,7 +28,9 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
                 'Configuración',
                 style: TextStyle(
@@ -39,7 +41,9 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                   height: 0.05,
                 ),
               ),
-              const SizedBox(height: 70,),
+              const SizedBox(
+                height: 70,
+              ),
               // Tema
               Row(
                 children: [
@@ -84,7 +88,7 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                     volumenValue = newValue;
                   });
                 },
-                activeColor: const Color(0xFF9E0044), 
+                activeColor: const Color(0xFF9E0044),
               ),
 
               SizedBox(
@@ -93,7 +97,8 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SuggestionsScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const SuggestionsScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -115,41 +120,43 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                   ),
                 ),
               ),
-              const SizedBox(height: 170,),
+              const SizedBox(
+                height: 130,
+              ),
               Center(
-                child:   ElevatedButton(
-                      onPressed: () async {
-                        // Cerrar sesión
-                        await FirebaseAuth.instance.signOut();
+                child: ElevatedButton(
+                  onPressed: () async {
+                    // Cerrar sesión
+                    await FirebaseAuth.instance.signOut();
 
-                        // Redirigir a la pantalla de bienvenida
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MainApp()),
-                          (route) => false, // Elimina todas las rutas existentes
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF9E0044),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      child: const SizedBox(
-                        width: 189,
-                        child: Text(
-                          'Cerrar Sesión',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
-                            height: 0.09,
-                          ),
-                        ),
+                    // Redirigir a la pantalla de bienvenida
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainApp()),
+                      (route) => false, // Elimina todas las rutas existentes
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF9E0044),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  child: const SizedBox(
+                    width: 189,
+                    child: Text(
+                      'Cerrar Sesión',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w700,
+                        height: 0.09,
                       ),
                     ),
+                  ),
+                ),
               ),
             ],
           ),

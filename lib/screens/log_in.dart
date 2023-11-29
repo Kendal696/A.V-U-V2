@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LogIn extends StatefulWidget {
-  const LogIn({super.key});
+  const LogIn({Key? key}) : super(key: key);
 
   @override
   State<LogIn> createState() => _LogInState();
@@ -17,8 +17,6 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,208 +28,231 @@ class _LogInState extends State<LogIn> {
         title: const Text('Login Screen'),
         backgroundColor: const Color(0xFF9E0044),
       ),
-      resizeToAvoidBottomInset: true, 
-      body: SingleChildScrollView( 
-        child: SizedBox(
-          width: screenWidth,
-          height: screenHeight,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 700,
-                height: 120,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFF9E0044),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(200),
-                    ),
-                  ),
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.grey[350],
+      body: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Container(
+            width: screenWidth,
+            height: 160,
+            decoration: const ShapeDecoration(
+              color: Color(0xFF9E0044),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(40),
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        width: 210,
-                        height: 20,
-                        child: Text(
-                          'Iniciar Sesion',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFF9E0044),
-                            fontSize: 30,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
-                            height: 0.05,
-                          ),
-                        ),
+            ),
+          ),
+          SingleChildScrollView(
+            child: SizedBox(
+              width: screenWidth,
+              height: screenHeight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    height: 340,
+                    width: screenWidth * 0.95,
+                    child: Card(
+                      margin: const EdgeInsets.all(16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(25), // Aumentado a 30
                       ),
-                      TextField(
-                        controller: emailController, 
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextField(
-                        controller: passwordController, 
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Password',
-                        ),
-                      ),
-                      const SizedBox(height: 24.0),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
-                          );
-                        },
-                        child: const Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '¿Olvidaste tu contraseña?',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.24,
-                                  letterSpacing: 0.15,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' ',
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(
+                              height: 40,
+                              width: 300,
+                            ),
+                            const SizedBox(
+                              width: 200,
+                              height: 40,
+                              child: Text(
+                                'Iniciar Sesion',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF9E0044),
-                                  fontSize: 10,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.24,
-                                  letterSpacing: 0.15,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'Click aquí',
-                                style: TextStyle(
-                                  color: Color(0xFF9E0044),
-                                  fontSize: 10,
+                                  fontSize: 30,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w700,
-                                  height: 0.24,
-                                  letterSpacing: 0.15,
+                                  height: 0.05,
                                 ),
                               ),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
+                            ),
+                            TextField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                prefixIcon: Icon(Icons.email),
+                              ),
+                            ),
+                            const SizedBox(height: 16.0),
+                            TextField(
+                              controller: passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                prefixIcon: Icon(Icons.lock),
+                              ),
+                            ),
+                            const SizedBox(height: 24.0),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ResetPasswordScreen()),
+                                );
+                              },
+                              child: const Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: '¿Olvidaste tu contraseña?',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0.24,
+                                        letterSpacing: 0.15,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' ',
+                                      style: TextStyle(
+                                        color: Color(0xFF9E0044),
+                                        fontSize: 10,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0.24,
+                                        letterSpacing: 0.15,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'Click aquí',
+                                      style: TextStyle(
+                                        color: Color(0xFF9E0044),
+                                        fontSize: 15,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0.24,
+                                        letterSpacing: 0.15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-ElevatedButton(
-  onPressed: () async {
-  final enteredEmail = emailController.text;
-final enteredPassword = passwordController.text;
+                  SizedBox(
+                    height: 50,
+                    width: screenWidth * 0.75,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        final enteredEmail = emailController.text;
+                        final enteredPassword = passwordController.text;
 
-try {
-  final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: enteredEmail,
-    password: enteredPassword,
-  );
+                        if (enteredEmail == 'admin@gmail.com' &&
+                            enteredPassword == 'admin123456') {
+                          // Navigate to the admin screen
+                          // Replace 'AdminScreen' with the screen for admin users
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => const BottomAdmin()),
+                          );
+                        } else {
+                          try {
+                            final userCredential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: enteredEmail,
+                              password: enteredPassword,
+                            );
 
-  final user = userCredential.user;
+                            final user = userCredential.user;
 
-  if (user != null) {
-    if (user.email == 'admin@gmail.com' && enteredPassword == 'admin123456') {
-      // Si las credenciales coinciden con el usuario administrador, redirige a la pantalla de administrador
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const BottomAdmin()),
-      );
-    } else {
-      // Si no es el usuario administrador, redirige a la pantalla de usuario normal
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const BottomUser()),
-      );
-    }
-  }
-} catch (e) {
-  String errorMessage = 'Error durante el inicio de sesión.';
-  if (e is FirebaseAuthException) {
-    if (e.code == 'user-not-found') {
-      errorMessage = 'Usuario no encontrado. Regístrese primero.';
-    } else if (e.code == 'wrong-password') {
-      errorMessage = 'Contraseña incorrecta. Inténtelo de nuevo.';
-    }
-  }
+                            if (user != null) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const BottomUser()),
+                              );
+                            }
+                          } catch (e) {
+                            // Handle login errors
+                            String errorMessage = 'Error during login.';
+                            if (e is FirebaseAuthException) {
+                              if (e.code == 'user-not-found') {
+                                errorMessage =
+                                    'User not found. Please register first.';
+                              } else if (e.code == 'wrong-password') {
+                                errorMessage =
+                                    'Incorrect password. Please try again.';
+                              }
+                            }
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(errorMessage),
-    ),
-  );
-  print('Error during login: $e');
-}
-},
-
-  
-
-
-  style: ElevatedButton.styleFrom(
-    backgroundColor: const Color(0xFF9E0044),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(50),
-    ),
-  ),
-  child: const Text('Login'),
-),
-
-
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF9E0044),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(errorMessage),
+                              ),
+                            );
+                            print('Error during login: $e');
+                          }
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF9E0044),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text('Reset Password'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const Camera()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF9E0044),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    height: 50,
+                    width: screenWidth * 0.75,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => const Camera()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF9E0044),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: const Text(
+                        'Login with Face ID',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text('Login with Face ID'),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
-
-
-

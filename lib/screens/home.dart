@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
     const EdgeInsets margin = EdgeInsets.all(10.0);
 
     return Scaffold(
-      body: SingleChildScrollView( 
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -24,6 +24,9 @@ class _HomeState extends State<Home> {
               width: double.infinity,
               height: 12,
               color: const Color(0xFFEDF0EF),
+            ),
+            SizedBox(
+              height: 20,
             ),
             const SizedBox(
               height: 35,
@@ -40,42 +43,33 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Container(
-              margin: margin,
-              width: double.infinity,
-              height: 198,
-              child: Stack(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(6.0),
-                    width: double.infinity,
-                    height: 198,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0), // Ajusta el espacio horizontal
+              child: TextField(
+                minLines: 5,
+                maxLines: 7,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  hintText: 'Escribe tu pregunta aquí...',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide(
+                      color: Colors.black, // Color del borde
+                      width: 2.0, // Grosor del borde
                     ),
                   ),
-                  const Positioned(
-                    left: 11,
-                    top: 19,
-                    child: SizedBox(
-                      width: 287,
-                      child: Text(
-                        'Cuales son los eventos mas cercanos o conferencias?',
-                        style: TextStyle(
-                          color: Color(0xFFA0A0A0),
-                          fontSize: 20,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          height: 0,
-                        ),
-                      ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide(
+                      color: Colors.black87,
+                      width: 2.0,
                     ),
                   ),
-                ],
+                ),
               ),
             ),
             Container(
@@ -124,89 +118,78 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Container(
-              margin: margin,
-              width: 280,
-              height: 55,
-              padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
-              decoration: ShapeDecoration(
+            ElevatedButton(
+              onPressed: () {
+                // Add your button's functionality here
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Color(0xFF9E0044),
+                side: BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                 shape: RoundedRectangleBorder(
-                  side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 267,
-                    height: 32,
-                    child: Text(
-                      '¿Como averiguo información acerca de las becas?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF9E0044),
-                        fontSize: 10,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
+              child: SizedBox(
+                width: 267,
+                height: 32,
+                child: Text(
+                  '¿Como averiguo información acerca de las becas?',
+                  textAlign: TextAlign.center, // Centra el texto
+                  style: TextStyle(
+                    color: Color(0xFF9E0044),
+                    fontSize: 10,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    height: 2,
                   ),
-                ],
+                ),
               ),
             ),
-            Container(
-              margin: margin,
-              width: 300,
-              height: 32,
-              padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
-              decoration: ShapeDecoration(
+            ElevatedButton(
+              onPressed: () {
+                // Add your button's functionality here
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Color(0xFF9E0044),
+                side: BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                 shape: RoundedRectangleBorder(
-                  side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 250,
-                    child: Text(
-                      '¿Dónde se encuentra el edificio...?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF9E0044),
-                        fontSize: 10,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
+              child: SizedBox(
+                width: 250,
+                child: Text(
+                  '¿Dónde se encuentra el edificio...?',
+                  textAlign: TextAlign.center, // Centra el texto
+                  style: TextStyle(
+                    color: Color(0xFF9E0044),
+                    fontSize: 10,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    height: 0,
                   ),
-                ],
+                ),
               ),
             ),
             Container(
-              margin: margin,
-              width: 75,
-              height: 75,
-              child: Stack(
-                children: [
-                  Container(
-                    margin: margin,
-                    width: 75,
-                    height: 75,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF9E0044),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ],
+              margin: const EdgeInsets.all(20.0),
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Color(0xFF9E0044),
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.mic,
+                  color: Colors.white,
+                  size: 40,
+                ),
+                onPressed: () {
+                  // TODO: Implement microphone button functionality
+                },
               ),
             ),
           ],

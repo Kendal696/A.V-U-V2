@@ -65,7 +65,8 @@ class _AddFaqsState extends State<AddFaqs> {
                   controller: questionController,
                   decoration: const InputDecoration(
                     hintText: 'Escriba la pregunta aquí...',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ),
@@ -90,7 +91,8 @@ class _AddFaqsState extends State<AddFaqs> {
                   controller: answerController,
                   decoration: const InputDecoration(
                     hintText: 'Escriba la respuesta aquí...',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ),
@@ -127,10 +129,21 @@ class _AddFaqsState extends State<AddFaqs> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const FAQsManagementScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const FAQsManagementScreen()),
                   );
                 },
-                child: const Text('FAQs Management'),
+                child: const Text(
+                  'FAQs Management',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                    height: 1.5,
+                  ),
+                ),
               ),
             ],
           ),
@@ -139,31 +152,28 @@ class _AddFaqsState extends State<AddFaqs> {
     );
   }
 
- Future<void> _agregarEvento() async {
-  try {
-    
+  Future<void> _agregarEvento() async {
+    try {
+      String question = questionController.text;
+      String answer = answerController.text;
 
-    String question = questionController.text;
-    String answer = answerController.text;
+      Map<String, dynamic> data = {
+        'question': question,
+        'answer': answer,
+      };
 
-    Map<String, dynamic> data = {
-      'question': question,
-      'answer': answer,
-    };
+      await _firestore.collection('faqs').add(data);
 
-    await _firestore.collection('faqs').add(data);
+      // Mostrar mensaje de éxito
+      _mostrarMensaje('FAQ agregado con éxito');
 
-    // Mostrar mensaje de éxito
-    _mostrarMensaje('FAQ agregado con éxito');
-
-    // Limpiar los campos después de agregar el FAQ
-    _limpiarCampos();
-  } catch (error) {
-    // Mostrar mensaje de error
-    _mostrarMensaje('Error al agregar el FAQ: $error');
+      // Limpiar los campos después de agregar el FAQ
+      _limpiarCampos();
+    } catch (error) {
+      // Mostrar mensaje de error
+      _mostrarMensaje('Error al agregar el FAQ: $error');
+    }
   }
-}
-
 
   void _mostrarMensaje(String mensaje) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -179,4 +189,3 @@ class _AddFaqsState extends State<AddFaqs> {
     answerController.clear();
   }
 }
-

@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+  const SignUp({Key? key}) : super(key: key);
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -28,132 +28,166 @@ class _SignUpState extends State<SignUp> {
         backgroundColor: const Color(0xFF9E0044),
       ),
       body: Container(
-        color: Colors.grey[200],
+        color: Colors.grey[350],
         height: screenHeight,
         width: screenWidth,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: double.infinity,
-                height: 120,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFF9E0044),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(200),
+              Stack(
+                children: [
+                  Container(
+                    width: screenWidth,
+                    height: 160,
+                    decoration: const ShapeDecoration(
+                      color: Color(0xFF9E0044),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(40),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        width: screenWidth * 0.7,
-                        height: 50,
-                        child: const Text(
-                          'Registrar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFF9E0044),
-                            fontSize: 30,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
+                  Center(
+                    child: Container(
+                      width: screenWidth * 0.95,
+                      margin: const EdgeInsets.only(top: 50),
+                      child: Card(
+                        margin: const EdgeInsets.all(16.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: screenWidth * 0.7,
+                                height: 50,
+                                child: const Text(
+                                  'Registrar',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF9E0044),
+                                    fontSize: 30,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              TextField(
+                                controller: nameController,
+                                decoration: InputDecoration(
+                                  labelText: 'Nombre',
+                                  prefixIcon: Icon(Icons.person),
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              TextField(
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                  labelText: 'Email',
+                                  prefixIcon: Icon(Icons.email),
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              TextField(
+                                controller: passwordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  labelText: 'Contraseña',
+                                  prefixIcon: Icon(Icons.lock),
+                                ),
+                              ),
+                              const SizedBox(height: 24.0),
+                            ],
                           ),
                         ),
                       ),
-                      TextField(
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Nombre',
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Contraseña',
-                        ),
-                      ),
-                      const SizedBox(height: 24.0),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  try {
-                    // Validar la contraseña
-                    if (passwordController.text.length < 6) {
-                      // Error
+              SizedBox(
+                height: 50,
+                width: screenWidth * 0.75,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      // Validar la contraseña
+                      if (passwordController.text.length < 6) {
+                        // Error
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Contraseña debe ser más o igual a 6 digitos'),
+                          ),
+                        );
+                        return;
+                      }
+
+                      // Crear nuevo usuario
+                      final UserCredential userCredential = await FirebaseAuth
+                          .instance
+                          .createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+
+                      // Acceder al usuario y obterner su UID
+                      final User? user = userCredential.user;
+                      final String uid = user?.uid ?? '';
+
+                      // Referencia a la base de datos
+                      final FirebaseFirestore firestore =
+                          FirebaseFirestore.instance;
+
+                      // Define los datos que se agregaran a la colleccion users
+                      final Map<String, dynamic> userData = {
+                        'name': nameController.text,
+                        'email': emailController.text,
+                        'password': passwordController.text,
+                        'created': FieldValue
+                            .serverTimestamp(), // Set the creation time
+                      };
+
+                      // Agregar el usuario
+                      await firestore
+                          .collection('users')
+                          .doc(uid)
+                          .set(userData);
+
+                      // Si todo bien, lleva al homescreen
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => const BottomUser()),
+                      );
+                    } catch (e) {
+                      // Errores handle
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Contraseña debe ser más o igual a 6 digitos'),
+                        SnackBar(
+                          content: Text('Error during registration: $e'),
                         ),
                       );
-                      return;
+                      print('Error during registration: $e');
                     }
-
-                    // Crear nuevo usuario
-                    final UserCredential userCredential =
-                        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-
-                    // Acceder al usuario y obterner su UID
-                    final User? user = userCredential.user;
-                    final String uid = user?.uid ?? '';
-
-                    // Referencia a la base de datos
-                    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-                    // Define los datos que se agregaran a la colleccion users  
-                    final Map<String, dynamic> userData = {
-                      'name': nameController.text,
-                      'email': emailController.text,
-                      'password': passwordController.text,
-                      'created': FieldValue.serverTimestamp(), // Set the creation time
-                    };
-
-                    // Agregar el usuario
-                    await firestore.collection('users').doc(uid).set(userData);
-
-                    // Si todo bien, lleva al homescreen
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const BottomUser()),
-                    );
-                  } catch (e) {
-                    // Errores handle
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error during registration: $e'),
-                      ),
-                    );
-                    print('Error during registration: $e');
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF9E0044),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF9E0044),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    minimumSize: Size(screenWidth * 0.5, 50),
+                  ),
+                  child: const Text(
+                    'Registrarse',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-                child: const Text('Sign Up'),
               ),
             ],
           ),
