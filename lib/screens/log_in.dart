@@ -24,10 +24,6 @@ class _LogInState extends State<LogIn> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login Screen'),
-        backgroundColor: const Color(0xFF9E0044),
-      ),
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[350],
       body: Stack(
@@ -35,7 +31,7 @@ class _LogInState extends State<LogIn> {
         children: [
           Container(
             width: screenWidth,
-            height: 160,
+            height: 260,
             decoration: const ShapeDecoration(
               color: Color(0xFF9E0044),
               shape: RoundedRectangleBorder(
@@ -53,7 +49,7 @@ class _LogInState extends State<LogIn> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 50),
+                    margin: const EdgeInsets.only(top: 100),
                     height: 340,
                     width: screenWidth * 0.95,
                     child: Card(

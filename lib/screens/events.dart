@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
@@ -7,8 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-class Events extends StatefulWidget {
+class Events extends StatefulWidget { 
   const Events({super.key});
 
   @override
@@ -52,8 +49,6 @@ class _EventsState extends State<Events> {
               final imageUrl = data['imagenUrl'] as String;
               final formUrl = data['formularioUrl'] as String?;
 
-            
-
               final day = date.toDate().day.toString();
               final month = DateFormat.MMMM().format(date.toDate());
               final hours = DateFormat.Hm().format(date.toDate());
@@ -63,14 +58,15 @@ class _EventsState extends State<Events> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        
-                        return EventDetailScreen(imageUrl: imageUrl, formUrl: formUrl);
+                        return EventDetailScreen(
+                            imageUrl: imageUrl, formUrl: formUrl);
                       },
                     ),
                   );
                 },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                child:Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 20.0),
                   width: double.infinity,
                   height: 100,
                   decoration: BoxDecoration(
@@ -177,7 +173,6 @@ class _EventsState extends State<Events> {
   }
 }
 
-
 class EventDetailScreen extends StatelessWidget {
   final String imageUrl;
   final String? formUrl;
@@ -187,10 +182,6 @@ class EventDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Event Details'),
-        backgroundColor: const Color(0xFF9E0044),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -199,7 +190,6 @@ class EventDetailScreen extends StatelessWidget {
             fit: BoxFit.cover,
             height: 600.0,
           ),
-
           if (formUrl != null)
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -220,10 +210,9 @@ class EventDetailScreen extends StatelessWidget {
   }
 
   Future<void> _launchInBrowserView(String formsURL) async {
-    Uri url= Uri.parse(formsURL);
+    Uri url = Uri.parse(formsURL);
     if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
       throw Exception('Could not launch $url');
     }
   }
-
 }

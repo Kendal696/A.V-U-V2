@@ -23,6 +23,8 @@ dependencies:
   http: any
   path_provider: ^2.1.1
   path: ^1.8.3
+  speech_to_text: ^6.4.1
+  flutter_animated_icons: ^1.0.1
   
 
 

@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: file_names
 
 import 'package:avu/screens/faq.dart';
@@ -8,7 +6,6 @@ import 'package:avu/screens/events.dart';
 import 'package:avu/screens/home.dart';
 import 'package:avu/screens/settingsVisitante.dart';
 import 'package:flutter/material.dart';
-
 
 class BottomVisitante extends StatelessWidget {
   const BottomVisitante({super.key});
@@ -25,13 +22,10 @@ class BottomVisitanteScreen extends StatefulWidget {
   const BottomVisitanteScreen({super.key});
 
   @override
-  State<BottomVisitanteScreen> createState() =>
-      _BottomUserScreenState();
+  State<BottomVisitanteScreen> createState() => _BottomUserScreenState();
 }
 
-
-class _BottomUserScreenState
-    extends State<BottomVisitanteScreen> {
+class _BottomUserScreenState extends State<BottomVisitanteScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -73,15 +67,15 @@ class _BottomUserScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(_selectedIndex), 
+      appBar: _buildAppBar(_selectedIndex),
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
           // Home Screen
           Home(),
           // Eventos
-         Events(),
-          // FAQS 
+          Events(),
+          // FAQS
           FAQ(),
           // Pantalla de configuracion
           SettingsVisitante(),

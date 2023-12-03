@@ -23,10 +23,6 @@ class _SignUpState extends State<SignUp> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registrarse'),
-        backgroundColor: const Color(0xFF9E0044),
-      ),
       body: Container(
         color: Colors.grey[350],
         height: screenHeight,
@@ -39,7 +35,7 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   Container(
                     width: screenWidth,
-                    height: 160,
+                    height: 260,
                     decoration: const ShapeDecoration(
                       color: Color(0xFF9E0044),
                       shape: RoundedRectangleBorder(
@@ -52,7 +48,7 @@ class _SignUpState extends State<SignUp> {
                   Center(
                     child: Container(
                       width: screenWidth * 0.95,
-                      margin: const EdgeInsets.only(top: 50),
+                      margin: const EdgeInsets.only(top: 100),
                       child: Card(
                         margin: const EdgeInsets.all(16.0),
                         shape: RoundedRectangleBorder(
