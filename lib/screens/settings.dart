@@ -115,6 +115,7 @@ class _SettingsState extends State<Settings> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
+                  /*
                   const SizedBox(
                     width: 261,
                     child: Text(
@@ -138,7 +139,7 @@ class _SettingsState extends State<Settings> {
                         temaSwitchValue = newValue;
                       });
                     },
-                  ),
+                  ),*/
                 ],
               ),
             ),

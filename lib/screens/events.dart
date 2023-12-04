@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Events extends StatefulWidget { 
+class Events extends StatefulWidget {
   const Events({super.key});
 
   @override
@@ -64,7 +64,7 @@ class _EventsState extends State<Events> {
                     ),
                   );
                 },
-                child:Container(
+                child: Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 20.0),
                   width: double.infinity,
@@ -182,6 +182,10 @@ class EventDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detalles del evento'),
+        backgroundColor: const Color(0xFF9E0044),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
