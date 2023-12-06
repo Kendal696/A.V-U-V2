@@ -81,6 +81,7 @@ class _BottomUserScreenState
          Events(),
           // FAQS 
           FAQ(),
+          
           // Pantalla de configuracion
           Settings(),
         ],

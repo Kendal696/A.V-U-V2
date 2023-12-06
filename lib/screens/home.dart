@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:flutter_animated_icons/icons8.dart';
+// ignore: depend_on_referenced_packages
 import 'package:lottie/lottie.dart';
 
 class Home extends StatefulWidget {
@@ -14,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  SpeechToText _speechToText = SpeechToText();
+  final SpeechToText _speechToText = SpeechToText();
   late AnimationController _favoriteController;
   bool _speechEnabled = false;
   String _lastWords = '';
@@ -80,7 +81,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               height: 12,
               color: const Color(0xFFEDF0EF),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             const SizedBox(
@@ -105,21 +106,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 minLines: 5,
                 maxLines: 7,
                 enabled: _canType,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                 ),
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20.0),
+                  contentPadding: const EdgeInsets.all(20.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black, // Color del borde
                       width: 2.0, // Grosor del borde
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black87,
                       width: 2.0,
                     ),
@@ -176,14 +177,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Color(0xFF9E0044),
-                side: BorderSide(width: 1.50, color: Color(0xFF9E0044)),
+                foregroundColor: const Color(0xFF9E0044), backgroundColor: Colors.white,
+                side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
-              child: SizedBox(
+              child: const SizedBox(
                 width: 267,
                 height: 32,
                 child: Text(
@@ -202,14 +202,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Color(0xFF9E0044),
-                side: BorderSide(width: 1.50, color: Color(0xFF9E0044)),
+                foregroundColor: const Color(0xFF9E0044), backgroundColor: Colors.white,
+                side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
-              child: SizedBox(
+              child: const SizedBox(
                 width: 250,
                 child: Text(
                   '¿Dónde se encuentra el edificio...?',
@@ -224,7 +223,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -234,12 +233,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(20.0),
                   width: 80,
                   height: 80,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.keyboard,
                       color: Colors.black,
                       size: 40,
@@ -256,7 +255,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(20.0),
                   width: 80,
                   height: 80,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFF9E0044),
                     shape: BoxShape.circle,
                   ),
@@ -268,7 +267,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             ? Lottie.asset(
                                 Icons8.circles_menu_1_material_filled,
                                 controller: _favoriteController)
-                            : Icon(
+                            : const Icon(
                                 Icons.mic,
                                 color: Colors.white,
                                 size: 40,
@@ -292,11 +291,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     shape: BoxShape.circle,
                     border: Border.all(
                       width: 1.50,
-                      color: Color(0xFF9E0044),
+                      color: const Color(0xFF9E0044),
                     ),
                   ),
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.stop,
                       color: Color(0xFF9E0044),
                       size: 40,

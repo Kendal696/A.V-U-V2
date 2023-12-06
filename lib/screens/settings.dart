@@ -4,7 +4,7 @@ import 'package:avu/screens/sugestions.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({super.key});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -31,8 +31,8 @@ class _SettingsState extends State<Settings> {
             const SizedBox(
               height: 50,
             ),
-            Center(
-              child: const Text(
+            const Center(
+              child: Text(
                 'Configuración',
                 style: TextStyle(
                   color: Color(0xFF9E0044),
@@ -64,7 +64,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   Checkbox(
@@ -95,7 +95,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   Checkbox(
@@ -111,8 +111,8 @@ class _SettingsState extends State<Settings> {
             ),
 
             // Tema
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
                   /*

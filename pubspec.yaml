@@ -12,10 +12,12 @@ dependencies:
   firebase_core: ^2.19.0
   camera: ^0.10.5+5
   image_picker: ^1.0.4
-  intl: ^0.17.0
+  intl: ^0.18.1
   firebase_storage: ^11.5.2
   url_launcher: ^6.2.1
   url_launcher_android: ^6.2.0
+  loading_animation_widget: ^1.2.0+4
+  voice_to_text: ^1.0.3
   
   flutter:
     sdk: flutter

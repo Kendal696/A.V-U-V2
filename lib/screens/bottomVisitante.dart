@@ -1,5 +1,8 @@
 // ignore_for_file: file_names
 
+import 'package:avu/home/home.dart';
+// ignore: unused_import
+import 'package:avu/models/user.dart';
 import 'package:avu/screens/faq.dart';
 import 'package:avu/screens/events.dart';
 
@@ -20,6 +23,7 @@ class BottomVisitante extends StatelessWidget {
 
 class BottomVisitanteScreen extends StatefulWidget {
   const BottomVisitanteScreen({super.key});
+   
 
   @override
   State<BottomVisitanteScreen> createState() => _BottomUserScreenState();
@@ -27,6 +31,10 @@ class BottomVisitanteScreen extends StatefulWidget {
 
 class _BottomUserScreenState extends State<BottomVisitanteScreen> {
   int _selectedIndex = 0;
+  
+  get user => null;
+  
+  
 
   void _onItemTapped(int index) {
     setState(() {
@@ -53,7 +61,12 @@ class _BottomUserScreenState extends State<BottomVisitanteScreen> {
         );
       case 3:
         return AppBar(
-          title: const Text('Settings'),
+          title: const Text('Chat'),
+          backgroundColor: const Color(0xFF9E0044),
+        );
+         case 4:
+        return AppBar(
+          title: const Text('Configuración'),
           backgroundColor: const Color(0xFF9E0044),
         );
       default:
@@ -77,8 +90,11 @@ class _BottomUserScreenState extends State<BottomVisitanteScreen> {
           Events(),
           // FAQS
           FAQ(),
+          //cHAT
+          Homee(),
           // Pantalla de configuracion
-          SettingsVisitante(),
+          SettingsVisitante()
+          
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -99,6 +115,11 @@ class _BottomUserScreenState extends State<BottomVisitanteScreen> {
             backgroundColor: Color(0xFF9E0044),
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'Chat',
+            backgroundColor: Color(0xFF9E0044),
+          ),
+            BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
             backgroundColor: Color(0xFF9E0044),

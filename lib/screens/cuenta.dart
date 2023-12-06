@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                     height: 10), // Agrega otro espacio vertical de 20 puntos
                 SizedBox(
                   width: screenWidth * 0.7,

@@ -1,10 +1,13 @@
-import 'package:avu/screens/bottom.dart';
+// ignore_for_file: library_private_types_in_public_api, sized_box_for_whitespace, use_build_context_synchronously
+
+import 'package:avu/screens/bottomVisitante.dart';
 import 'package:avu/screens/log_in.dart';
 import 'package:avu/screens/sign_up.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Welcome extends StatefulWidget {
-  const Welcome({Key? key}) : super(key: key);
+  const Welcome({super.key});
 
   @override
   _WelcomeState createState() => _WelcomeState();
@@ -17,7 +20,7 @@ class _WelcomeState extends State<Welcome> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/background.png'),
             fit: BoxFit.cover,
@@ -72,7 +75,7 @@ class _WelcomeState extends State<Welcome> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           vertical:
                               12), // Aumentar el tamaño vertical del botón
                     ),
@@ -92,37 +95,46 @@ class _WelcomeState extends State<Welcome> {
                   height: 20,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width *
-                      0.7, // Establecer el ancho del contenedor al 70% del ancho de la pantalla
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BottomUser()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFA7A9AC),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical:
-                              12), // Aumentar el tamaño vertical del botón
-                    ),
-                    child: const Text(
-                      'Visitante',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18, // Aumentar el tamaño de la letra
-                        fontWeight: FontWeight.w700,
-                        height: 1.4285714286,
-                        color: Color(0xFFFFFFFF),
-                      ),
-                    ),
-                  ),
-                ),
+  width: MediaQuery.of(context).size.width * 0.7,
+  child: ElevatedButton(
+    onPressed: () async {
+      try {
+        // Iniciar sesión con las credenciales predeterminadas
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'visitante@example.com',
+          password: 'contraseña',
+        );
+
+        // Después de iniciar sesión, navegar a la siguiente pantalla
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BottomVisitante()),
+        );
+      } catch (e) {
+        // Manejar errores de inicio de sesión (si es necesario)
+        print('Error al iniciar sesión: $e');
+      }
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFFA7A9AC),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 12),
+    ),
+    child: const Text(
+      'Visitante',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+        height: 1.4285714286,
+        color: Color(0xFFFFFFFF),
+      ),
+    ),
+  ),
+),
+
                 const SizedBox(
                   height: 20,
                 ),

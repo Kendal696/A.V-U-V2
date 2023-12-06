@@ -112,7 +112,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         fontSize: screenWidth *
                             0.04, // Ajusta el tamaño de la fuente según sea necesario
                         fontFamily: 'Poppins',
-                        color: Color(0xFF000000),
+                        color: const Color(0xFF000000),
                       ),
                     ),
                   ),
@@ -132,9 +132,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.email,
-                          color: const Color(0xFF000000),
+                          color: Color(0xFF000000),
                         ),
                       ),
                       style: TextStyle(

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LogIn extends StatefulWidget {
-  const LogIn({Key? key}) : super(key: key);
+  const LogIn({super.key});
 
   @override
   State<LogIn> createState() => _LogInState();
@@ -84,7 +84,7 @@ class _LogInState extends State<LogIn> {
                             ),
                             TextField(
                               controller: emailController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 labelText: 'Email',
                                 prefixIcon: Icon(Icons.email),
                               ),
@@ -93,7 +93,7 @@ class _LogInState extends State<LogIn> {
                             TextField(
                               controller: passwordController,
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 labelText: 'Password',
                                 prefixIcon: Icon(Icons.lock),
                               ),
@@ -220,7 +220,7 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   SizedBox(
                     height: 50,
                     width: screenWidth * 0.75,

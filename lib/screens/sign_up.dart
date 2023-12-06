@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+  const SignUp({super.key});
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               TextField(
                                 controller: nameController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Nombre',
                                   prefixIcon: Icon(Icons.person),
                                 ),
@@ -83,7 +83,7 @@ class _SignUpState extends State<SignUp> {
                               const SizedBox(height: 16.0),
                               TextField(
                                 controller: emailController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Email',
                                   prefixIcon: Icon(Icons.email),
                                 ),
@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> {
                               TextField(
                                 controller: passwordController,
                                 obscureText: true,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Contraseña',
                                   prefixIcon: Icon(Icons.lock),
                                 ),
