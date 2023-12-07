@@ -10,6 +10,7 @@ class Load extends StatefulWidget {
 
 class _Load extends State<Load> {
   Color color = const Color(0xFF9e0044);
+  Color color2 = const Color(0xFFffffff);
   @override
   Widget build(BuildContext context) {
     switch (widget.type) {
@@ -24,8 +25,8 @@ class _Load extends State<Load> {
           size: 30,
         );
       case 3:
-        return LoadingAnimationWidget.hexagonDots(
-          color: color,
+        return LoadingAnimationWidget.staggeredDotsWave(
+          color: color2,
           size: 30,
         );
       default:

@@ -69,8 +69,9 @@ class _WelcomeState extends State<Welcome> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LogIn(),
-                        settings: const RouteSettings(name: 'UsuarioHome')),
+                        MaterialPageRoute(
+                            builder: (context) => const LogIn(),
+                            settings: const RouteSettings(name: 'UsuarioHome')),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -98,49 +99,49 @@ class _WelcomeState extends State<Welcome> {
                   height: 20,
                 ),
                 Container(
-  width: MediaQuery.of(context).size.width * 0.7,
-  child: ElevatedButton(
-    onPressed: () async {
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'visitante@example.com',
-          password: 'contraseña',
-        );
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: 'visitante@example.com',
+                          password: 'contraseña',
+                        );
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const BottomVisitanteScreen(),
-          settings: const RouteSettings(name: 'Visitante Home'),),
-          
-        );
-        printCurrentRoutes(context);
-
-      } catch (e) {
-        if (kDebugMode) {
-          print('Error al iniciar sesión: $e');
-        }
-      }
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFFA7A9AC),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 12),
-    ),
-    child: const Text(
-      'Visitante',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-        height: 1.4285714286,
-        color: Color(0xFFFFFFFF),
-      ),
-    ),
-  ),
-),
-
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BottomVisitanteScreen(),
+                            settings:
+                                const RouteSettings(name: 'Visitante Home'),
+                          ),
+                        );
+                        printCurrentRoutes(context);
+                      } catch (e) {
+                        if (kDebugMode) {
+                          print('Error al iniciar sesión: $e');
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFA7A9AC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    child: const Text(
+                      'Visitante',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        height: 1.4285714286,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),

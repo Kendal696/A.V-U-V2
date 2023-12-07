@@ -20,7 +20,11 @@ class _EventsManagementState extends State<EventsManagement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gestión de Eventos'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Gestión de Eventos',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF9E0044),
       ),
       body: Padding(
@@ -42,7 +46,8 @@ class _EventFormState extends State<EventForm> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
   File? _selectedImage;
-  final TextEditingController _formularioUrlController = TextEditingController();
+  final TextEditingController _formularioUrlController =
+      TextEditingController();
 
   final Color _color = const Color(0xFF9E0044);
 
@@ -94,61 +99,59 @@ class _EventFormState extends State<EventForm> {
     }
   }
 
- Future<String> _subirImagenAFirebaseStorage(File imagen) async {
-  try {
-    final storageReference = FirebaseStorage.instance
-        .ref()
-        .child('imagenes_eventos/${DateTime.now().millisecondsSinceEpoch}.jpg');
+  Future<String> _subirImagenAFirebaseStorage(File imagen) async {
+    try {
+      final storageReference = FirebaseStorage.instance.ref().child(
+          'imagenes_eventos/${DateTime.now().millisecondsSinceEpoch}.jpg');
 
-    await storageReference.putFile(imagen);
+      await storageReference.putFile(imagen);
 
-    final downloadURL = await storageReference.getDownloadURL();
-    return downloadURL;
-  } catch (error) {
-    throw error;
-  }
-}
-
-void _agregarEvento() async {
-  try {
-    DateTime selectedDateTime = DateTime(
-      _selectedDate.year,
-      _selectedDate.month,
-      _selectedDate.day,
-      _selectedTime.hour,
-      _selectedTime.minute,
-    );
-
-    String imageUrl = '';
-
-    if (_selectedImage != null) {
-      imageUrl = await _subirImagenAFirebaseStorage(_selectedImage!);
+      final downloadURL = await storageReference.getDownloadURL();
+      return downloadURL;
+    } catch (error) {
+      throw error;
     }
-
-    await FirebaseFirestore.instance.collection('events').add({
-      'nombre': _nombreController.text,
-      'descripcion': _descripcionController.text,
-      'fecha': selectedDateTime,
-      'imagenUrl': imageUrl,
-      'formularioUrl': _formularioUrlController.text,
-    });
-
-    _mostrarMensaje('Evento agregado con éxito');
-    _limpiarCampos();
-  } catch (error) {
-    _mostrarMensaje('Error al agregar el evento: $error');
   }
-}
 
-void _limpiarCampos() {
-  _nombreController.clear();
-  _descripcionController.clear();
-  _selectedDate = DateTime.now();
-  _selectedTime = TimeOfDay.now();
-  _selectedImage == null; 
-  _formularioUrlController.clear();
-}
+  void _agregarEvento() async {
+    try {
+      DateTime selectedDateTime = DateTime(
+        _selectedDate.year,
+        _selectedDate.month,
+        _selectedDate.day,
+        _selectedTime.hour,
+        _selectedTime.minute,
+      );
 
+      String imageUrl = '';
+
+      if (_selectedImage != null) {
+        imageUrl = await _subirImagenAFirebaseStorage(_selectedImage!);
+      }
+
+      await FirebaseFirestore.instance.collection('events').add({
+        'nombre': _nombreController.text,
+        'descripcion': _descripcionController.text,
+        'fecha': selectedDateTime,
+        'imagenUrl': imageUrl,
+        'formularioUrl': _formularioUrlController.text,
+      });
+
+      _mostrarMensaje('Evento agregado con éxito');
+      _limpiarCampos();
+    } catch (error) {
+      _mostrarMensaje('Error al agregar el evento: $error');
+    }
+  }
+
+  void _limpiarCampos() {
+    _nombreController.clear();
+    _descripcionController.clear();
+    _selectedDate = DateTime.now();
+    _selectedTime = TimeOfDay.now();
+    _selectedImage == null;
+    _formularioUrlController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +196,8 @@ void _limpiarCampos() {
           ElevatedButton(
             onPressed: _seleccionarImagen,
             style: ElevatedButton.styleFrom(backgroundColor: _color),
-            child: const Text('Seleccionar Imagen'),
+            child: const Text('Seleccionar Imagen',
+                style: TextStyle(color: Colors.white)),
           ),
           const SizedBox(height: 16.0),
           if (_selectedImage != null)
@@ -202,9 +206,9 @@ void _limpiarCampos() {
               height: 100,
               width: 100,
               fit: BoxFit.cover,
-            )else(
-              const Icon ( Icons.camera)
-            ),
+            )
+          else
+            (const Icon(Icons.camera)),
           const SizedBox(height: 16.0),
           TextFormField(
             controller: _formularioUrlController,
@@ -214,12 +218,14 @@ void _limpiarCampos() {
           ElevatedButton(
             onPressed: _agregarEvento,
             style: ElevatedButton.styleFrom(backgroundColor: _color),
-            child: const Text('Agregar Evento'),
+            child: const Text('Agregar Evento',
+                style: TextStyle(color: Colors.white)),
           ),
           ElevatedButton(
             onPressed: _manejoEventos,
             style: ElevatedButton.styleFrom(backgroundColor: _color),
-            child: const Text('Manejo de Eventos'),
+            child: const Text('Manejo de Eventos',
+                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -234,6 +240,5 @@ void _limpiarCampos() {
       ),
     );
     printCurrentRoutes(context);
-
   }
 }

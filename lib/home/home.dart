@@ -8,8 +8,8 @@ import 'package:voice_to_text/voice_to_text.dart';
 import 'package:intl/intl.dart';
 
 class Homee extends StatefulWidget {
-  
-  const Homee({ super.key});
+  final String initialText;
+  const Homee({super.key, this.initialText = ''}); // Valor por defecto agregado
   @override
   State<Homee> createState() => _Homee();
 }
@@ -22,12 +22,20 @@ class _Homee extends State<Homee> {
   @override
   void initState() {
     super.initState();
+    questionController = TextEditingController(text: widget.initialText);
     _speech.initSpeech();
     _speech.addListener(() {
       setState(() {
         questionController.text = _speech.speechResult;
       });
     });
+    if (widget.initialText.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          handleButton();
+        }
+      });
+    }
   }
 
   Widget newQuestion(String questionInput) {
@@ -158,12 +166,18 @@ class _Homee extends State<Homee> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
-          children: [
-             
-          ],
+        automaticallyImplyLeading: false, // Elimina el botón de retroceso
+        title: const Text(
+          'Chat',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: const Color(0xFF9E0044), // Color principal
+        backgroundColor: const Color(0xFF9E0044),
+        actions: [
+          IconButton(
+            onPressed: clearChat,
+            icon: const Icon(Icons.delete, color: Colors.white),
+          ),
+        ],
       ),
       body: Container(
         color: const Color(0xFFF4EFF3),
@@ -181,18 +195,6 @@ class _Homee extends State<Homee> {
                 },
               ),
             )),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: Card(
-                  margin: const EdgeInsets.all(5),
-                  color: const Color(0xFF9e0044),
-                  child: TextButton(
-                      onPressed: clearChat,
-                      child: const Text(
-                        "Limpiar chat",
-                        style: TextStyle(color: Colors.white),
-                      )),
-                )),
             Container(
               color: Colors.white,
               width: double.infinity,

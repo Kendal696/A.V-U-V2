@@ -21,6 +21,14 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Settings',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF9E0044),
+      ),
       body: Container(
         margin: const EdgeInsets.all(20.0),
         width: double.infinity,
@@ -48,6 +56,7 @@ class _SettingsState extends State<Settings> {
               height: 30,
             ),
             // Notificaciones
+            /*
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
@@ -164,7 +173,42 @@ class _SettingsState extends State<Settings> {
               },
               activeColor: const Color(0xFF9E0044),
             ),
-
+*/
+            Row(
+              children: [
+                const SizedBox(
+                  width: 261,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.notifications,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        'Mandar notificaciones',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Switch(
+                  value: temaSwitchValue,
+                  onChanged: (bool newValue) {
+                    setState(() {
+                      temaSwitchValue = newValue;
+                    });
+                  },
+                  activeColor: const Color(0xFF9E0044),
+                ),
+              ],
+            ),
             Center(
               child: SizedBox(
                 width: 300,
@@ -255,8 +299,7 @@ class _SettingsState extends State<Settings> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MainApp()
-                            ),
+                            builder: (context) => const MainApp()),
                       );
                       await FirebaseAuth.instance.signOut();
                     },

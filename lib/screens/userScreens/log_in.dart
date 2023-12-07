@@ -181,7 +181,8 @@ class _LogInState extends State<LogIn> {
                             if (user != null) {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => const BottomUserScreen()),
+                                    builder: (context) =>
+                                        const BottomUserScreen()),
                               );
                             }
                           } catch (e) {
@@ -213,8 +214,8 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                       child: const Text(
-                        'Login',
-                        style: TextStyle(fontSize: 20),
+                        'Iniciar Sesion',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),
@@ -237,7 +238,7 @@ class _LogInState extends State<LogIn> {
                       ),
                       child: const Text(
                         'Login with Face ID',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),

@@ -1,12 +1,9 @@
-
-
 import 'package:avu/screens/userScreens/faq.dart';
 import 'package:avu/screens/events/events.dart';
 
 import 'package:avu/screens/userScreens/home.dart';
 import 'package:avu/screens/userScreens/settings.dart';
 import 'package:flutter/material.dart';
-
 
 class BottomUser extends StatelessWidget {
   const BottomUser({super.key});
@@ -23,12 +20,10 @@ class BottomUserScreen extends StatefulWidget {
   const BottomUserScreen({super.key});
 
   @override
-  State<BottomUserScreen> createState() =>
-      _BottomUserScreenState();
+  State<BottomUserScreen> createState() => _BottomUserScreenState();
 }
 
-class _BottomUserScreenState
-    extends State<BottomUserScreen> {
+class _BottomUserScreenState extends State<BottomUserScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -37,30 +32,33 @@ class _BottomUserScreenState
     });
   }
 
-  AppBar _buildAppBar(int index) {
+  AppBar? _buildAppBar(int index) {
     switch (index) {
       case 0:
-        return AppBar(
-          title: const Text('Home'),
-          backgroundColor: const Color(0xFF9E0044),
-        );
+        return null;
       case 1:
         return AppBar(
-          title: const Text('Eventos'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'Eventos',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         );
       case 2:
         return AppBar(
-          title: const Text('FAQS'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'FAQS',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         );
       case 3:
-        return AppBar(
-          title: const Text('Settings'),
-          backgroundColor: const Color(0xFF9E0044),
-        );
+        return null;
       default:
         return AppBar(
+          automaticallyImplyLeading: false,
           title: const Text('Default'),
           backgroundColor: const Color(0xFF9E0044),
         );
@@ -70,16 +68,16 @@ class _BottomUserScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(_selectedIndex), 
+      appBar: _buildAppBar(_selectedIndex),
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
           // Home Screen
           Home(),
           // Eventos
-         Events(),
-          // FAQS 
-          FAQ(),         
+          Events(),
+          // FAQS
+          FAQ(),
           // Pantalla de configuracion
           Settings(),
         ],

@@ -181,6 +181,7 @@ class _SignUpState extends State<SignUp> {
                     'Registrarse',
                     style: TextStyle(
                       fontSize: 20,
+                      color: Colors.white,
                     ),
                   ),
                 ),

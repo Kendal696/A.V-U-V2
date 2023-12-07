@@ -5,7 +5,7 @@ import 'package:avu/screens/userScreens/home.dart';
 import 'package:avu/screens/userScreens/settings.dart';
 import 'package:flutter/material.dart';
 
- // Import the ImageUpload screen
+// Import the ImageUpload screen
 
 void main() => runApp(const BottomAdminApp());
 
@@ -24,12 +24,10 @@ class BottomAdmin extends StatefulWidget {
   const BottomAdmin({super.key});
 
   @override
-  State<BottomAdmin> createState() =>
-      _BottomAdminState();
+  State<BottomAdmin> createState() => _BottomAdminState();
 }
 
-class _BottomAdminState
-    extends State<BottomAdmin> {
+class _BottomAdminState extends State<BottomAdmin> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -43,13 +41,12 @@ class _BottomAdminState
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
-        children: const [    
+        children: const [
           Home(),
-          EventsManagement(),        
-          AddFaqs(), 
+          EventsManagement(),
+          AddFaqs(),
           FAQsSuggestions(),
           Settings(),
-
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -57,27 +54,27 @@ class _BottomAdminState
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor:  Color(0xFF9E0044),
+            backgroundColor: Color(0xFF9E0044),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
             label: 'Eventos',
-            backgroundColor:  Color(0xFF9E0044),
+            backgroundColor: Color(0xFF9E0044),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.question_answer),
             label: 'FAQs',
-            backgroundColor:  Color(0xFF9E0044),
+            backgroundColor: Color(0xFF9E0044),
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Sugerencias FAQs',
-            backgroundColor:  Color(0xFF9E0044),
+            backgroundColor: Color(0xFF9E0044),
           ),
-          BottomNavigationBarItem( 
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Configuracion',
-            backgroundColor:  Color(0xFF9E0044),
+            backgroundColor: Color(0xFF9E0044),
           ),
         ],
         currentIndex: _selectedIndex,

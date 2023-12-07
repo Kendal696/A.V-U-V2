@@ -9,7 +9,11 @@ class FAQsManagementScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FAQs Management'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'FAQs Management',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF9E0044),
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -39,7 +43,8 @@ class FAQsManagementScreen extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.edit),
                         onPressed: () {
-                          _openEditDialog(context, documentId, question, answer);
+                          _openEditDialog(
+                              context, documentId, question, answer);
                         },
                       ),
                       IconButton(
@@ -59,7 +64,8 @@ class FAQsManagementScreen extends StatelessWidget {
     );
   }
 
-  void _openEditDialog(BuildContext context, String documentId, String question, String answer) {
+  void _openEditDialog(
+      BuildContext context, String documentId, String question, String answer) {
     String newQuestion = question;
     String newAnswer = answer;
 
@@ -90,7 +96,10 @@ class FAQsManagementScreen extends StatelessWidget {
           actions: [
             ElevatedButton(
               onPressed: () {
-                FirebaseFirestore.instance.collection('faqs').doc(documentId).update({
+                FirebaseFirestore.instance
+                    .collection('faqs')
+                    .doc(documentId)
+                    .update({
                   'question': newQuestion,
                   'answer': newAnswer,
                 });
@@ -114,5 +123,3 @@ class FAQsManagementScreen extends StatelessWidget {
     FirebaseFirestore.instance.collection('faqs').doc(documentId).delete();
   }
 }
-
-

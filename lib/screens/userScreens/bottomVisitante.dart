@@ -12,7 +12,10 @@ class BottomVisitante extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BottomVisitanteScreen();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BottomVisitanteScreen(),
+    );
   }
 }
 
@@ -26,42 +29,54 @@ class BottomVisitanteScreen extends StatefulWidget {
 class _BottomUserScreenState extends State<BottomVisitanteScreen> {
   int _selectedIndex = 0;
 
+  get user => null;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  AppBar _buildAppBar(int index) {
+  AppBar? _buildAppBar(int index) {
     switch (index) {
       case 0:
-        return AppBar(
-          title: const Text('Home'),
-          backgroundColor: const Color(0xFF9E0044),
-        );
+        return null;
       case 1:
         return AppBar(
-          title: const Text('Eventos'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'Eventos',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         );
       case 2:
         return AppBar(
-          title: const Text('FAQS'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'FAQS',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         );
       case 3:
-        return AppBar(
-          title: const Text('Chat'),
-          backgroundColor: const Color(0xFF9E0044),
-        );
+        return null;
       case 4:
         return AppBar(
-          title: const Text('Configuración'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'Configuración',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         );
       default:
         return AppBar(
-          title: const Text('Default'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'Default',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         );
     }
@@ -69,16 +84,22 @@ class _BottomUserScreenState extends State<BottomVisitanteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var appBar = _buildAppBar(_selectedIndex);
     return Scaffold(
-      appBar: _buildAppBar(_selectedIndex),
+      appBar: appBar,
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
+          // Home Screen
           Home(),
+          // Eventos
           Events(),
+          // FAQS
           FAQ(),
+          //cHAT
           Homee(),
-          SettingsVisitante(),
+          // Pantalla de configuracion
+          SettingsVisitante()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

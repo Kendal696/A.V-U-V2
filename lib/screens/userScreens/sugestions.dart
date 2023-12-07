@@ -18,7 +18,7 @@ class SuggestionsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Suggestions'),
+        title: const Text('Suggestions', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF9E0044),
       ),
       body: SingleChildScrollView(
@@ -63,7 +63,8 @@ class SuggestionsScreen extends StatelessWidget {
                   controller: questionController,
                   decoration: const InputDecoration(
                     hintText: 'Escribe tu pregunta aquí...',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ),
@@ -87,8 +88,10 @@ class SuggestionsScreen extends StatelessWidget {
                 child: TextFormField(
                   controller: answerController,
                   decoration: const InputDecoration(
-                    hintText: 'Si tienes respuestas en mente, compártela aquí...',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    hintText:
+                        'Si tienes respuestas en mente, compártela aquí...',
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ),
@@ -114,7 +117,8 @@ class SuggestionsScreen extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
                     hintText: 'Ingresa tu número de teléfono... (opcional)',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ),
@@ -134,9 +138,9 @@ class SuggestionsScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   final User? user = FirebaseAuth.instance.currentUser;
-                   String userId = user?.uid ?? 'Visitante${Random().nextInt(100000)}';
+                  String userId =
+                      user?.uid ?? 'Visitante${Random().nextInt(100000)}';
                   if (user == null) {
-                    
                     return;
                   }
                   String question = questionController.text;
@@ -147,27 +151,29 @@ class SuggestionsScreen extends StatelessWidget {
                     // Mostrar mensaje de error si los campos de pregunta y respuesta están vacíos
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Por favor, llena los campos de pregunta y respuesta.'),
+                        content: Text(
+                            'Por favor, llena los campos de pregunta y respuesta.'),
                         duration: Duration(seconds: 3),
                       ),
                     );
                     return;
                   }
 
-                    Map<String, dynamic> data = {
-      'question': question,
-      'answer': answer,
-      'phoneNumber': phoneNumber,
-      'userId': userId,
-      'sent': FieldValue.serverTimestamp(),
-    };
+                  Map<String, dynamic> data = {
+                    'question': question,
+                    'answer': answer,
+                    'phoneNumber': phoneNumber,
+                    'userId': userId,
+                    'sent': FieldValue.serverTimestamp(),
+                  };
 
                   try {
                     await _firestore.collection('faqsSuggestions').add(data);
                     // Mostrar mensaje de éxito y agradecimiento
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('FAQ enviado con éxito. ¡Gracias por tu contribución!'),
+                        content: Text(
+                            'FAQ enviado con éxito. ¡Gracias por tu contribución!'),
                         duration: Duration(seconds: 3),
                       ),
                     );

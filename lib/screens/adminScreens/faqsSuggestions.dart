@@ -21,11 +21,14 @@ class _FAQsSuggestionsState extends State<FAQsSuggestions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FAQs Suggestions'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'FAQs Suggestions',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF9E0044),
       ),
-      body:
-       StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder<QuerySnapshot>(
         stream: faqsSuggestionsCollection.snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -45,13 +48,13 @@ class _FAQsSuggestionsState extends State<FAQsSuggestions> {
               return Card(
                 child: ListTile(
                   title: Text(question),
-                   subtitle: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(answer),
-      if (number != null && number.isNotEmpty) Text(number),
-    ],
-  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(answer),
+                      if (number != null && number.isNotEmpty) Text(number),
+                    ],
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -79,7 +82,8 @@ class _FAQsSuggestionsState extends State<FAQsSuggestions> {
   }
 
   void acceptFAQ(DocumentSnapshot faqSuggestion) {
-    final Map<String, dynamic> data = faqSuggestion.data() as Map<String, dynamic>;
+    final Map<String, dynamic> data =
+        faqSuggestion.data() as Map<String, dynamic>;
     faqsCollection.add(data);
     faqSuggestion.reference.delete();
   }
@@ -88,5 +92,3 @@ class _FAQsSuggestionsState extends State<FAQsSuggestions> {
     faqSuggestion.reference.delete();
   }
 }
-
-

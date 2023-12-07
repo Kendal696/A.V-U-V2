@@ -31,14 +31,16 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                'Configuración',
-                style: TextStyle(
-                  color: Color(0xFF9E0044),
-                  fontSize: 30,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                  height: 0.05,
+              Center(
+                child: Text(
+                  'Configuración',
+                  style: TextStyle(
+                    color: Color(0xFF9E0044),
+                    fontSize: 30,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                    height: 0.05,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -49,15 +51,24 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                 children: [
                   const SizedBox(
                     width: 261,
-                    child: Text(
-                      'Tema',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 1.5,
-                      ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.notifications,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          'Mandar notificaciones',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Switch(
@@ -67,10 +78,11 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                         temaSwitchValue = newValue;
                       });
                     },
+                    activeColor: const Color(0xFF9E0044),
                   ),
                 ],
               ),
-
+/*
               const Text(
                 'Ajustar Volumen del Asistente de voz',
                 style: TextStyle(
@@ -90,32 +102,37 @@ class _SettingsVisitanteState extends State<SettingsVisitante> {
                 },
                 activeColor: const Color(0xFF9E0044),
               ),
-
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SuggestionsScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF9E0044),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+*/
+              Center(
+                child: SizedBox(
+                  width: 300,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SuggestionsScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 1), // Adjust the padding here
+                      backgroundColor: const Color(0xFF9E0044),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    'Sugerir Pregunta Frecuente',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w700,
-                      height: 0.09,
+                    child: const Text(
+                      'Sugerir Pregunta Frecuente',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w700,
+                        height: 0.09,
+                      ),
                     ),
                   ),
                 ),

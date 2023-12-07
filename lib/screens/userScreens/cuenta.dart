@@ -43,7 +43,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cuenta'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Cuenta',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF9E0044),
       ),
       body: LayoutBuilder(
@@ -121,6 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: const Text(
                     'Cambiar perfil',
                     style: TextStyle(
+                      color: Colors.white,
                       fontSize: 18, // Aumenta el tamaño de la letra a 18
                     ),
                   ),
@@ -143,6 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: const Text(
                     'Cambiar Contraseña',
                     style: TextStyle(
+                      color: Colors.white,
                       fontSize: 18, // Aumenta el tamaño de la letra a 18
                     ),
                   ),

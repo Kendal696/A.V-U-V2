@@ -1,11 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:avu/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:flutter_animated_icons/icons8.dart';
-// ignore: depend_on_referenced_packages
-import 'package:lottie/lottie.dart';
+import 'package:avu/home/widgets/load.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -30,6 +29,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _favoriteController =
         AnimationController(vsync: this, duration: const Duration(seconds: 5));
     _textController = TextEditingController();
+  }
+
+  void _handleButton1Click() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Homee(initialText: "¿Horarios de atencion?"),
+      ),
+    );
+  }
+
+  void _handleButton2Click() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Homee(
+            initialText:
+                "¿Cuales son las becas disponibles para estudiantes regulares?"),
+      ),
+    );
   }
 
   @override
@@ -71,6 +90,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     const EdgeInsets margin = EdgeInsets.all(10.0);
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Home',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF9E0044),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,7 +161,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  // Add your button's functionality here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Homee(initialText: _textController.text),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF9E0044),
@@ -175,9 +208,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _handleButton1Click,
               style: ElevatedButton.styleFrom(
-                foregroundColor: const Color(0xFF9E0044), backgroundColor: Colors.white,
+                foregroundColor: const Color(0xFF9E0044),
+                backgroundColor: Colors.white,
                 side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
@@ -187,7 +221,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 width: 267,
                 height: 32,
                 child: Text(
-                  '¿Como averiguo información acerca de las becas?',
+                  '¿Cuales son los horarios de atencion de plataforma?',
                   textAlign: TextAlign.center, // Centra el texto
                   style: TextStyle(
                     color: Color(0xFF9E0044),
@@ -200,9 +234,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _handleButton2Click,
               style: ElevatedButton.styleFrom(
-                foregroundColor: const Color(0xFF9E0044), backgroundColor: Colors.white,
+                foregroundColor: const Color(0xFF9E0044),
+                backgroundColor: Colors.white,
                 side: const BorderSide(width: 1.50, color: Color(0xFF9E0044)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
@@ -211,7 +246,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               child: const SizedBox(
                 width: 250,
                 child: Text(
-                  '¿Dónde se encuentra el edificio...?',
+                  '¿Cuales son las becas disponibles?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF9E0044),
@@ -264,11 +299,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       animation: _favoriteController,
                       builder: (context, child) {
                         return _isListening
-                            ? Lottie.asset(
-                                Icons8.circles_menu_1_material_filled,
-                                controller: _favoriteController)
+                            ? const Load(
+                                type: 3,
+                              )
                             : const Icon(
-                                Icons.mic,
+                                Icons.mic_off,
                                 color: Colors.white,
                                 size: 40,
                               );

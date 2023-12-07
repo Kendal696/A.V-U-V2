@@ -21,7 +21,11 @@ class _AddFaqsState extends State<AddFaqs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FAQs'),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'FAQs',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF9E0044),
       ),
       body: SingleChildScrollView(
@@ -128,16 +132,15 @@ class _AddFaqsState extends State<AddFaqs> {
                   ),
                 ),
                 onPressed: () {
-                   Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => const FAQsManagementScreen(),
-    settings: const RouteSettings(name: 'FAQsManagementScreen'),
-  ),
-);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FAQsManagementScreen(),
+                      settings:
+                          const RouteSettings(name: 'FAQsManagementScreen'),
+                    ),
+                  );
                   printCurrentRoutes(context);
-                 
-
                 },
                 child: const Text(
                   'FAQs Management',

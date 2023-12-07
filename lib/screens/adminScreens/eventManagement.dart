@@ -16,9 +16,8 @@ class EventsManagementScreen extends StatelessWidget {
         throw Exception('No se seleccionó ninguna imagen.');
       }
 
-      final storageReference = FirebaseStorage.instance
-          .ref()
-          .child('imagenes_eventos/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final storageReference = FirebaseStorage.instance.ref().child(
+          'imagenes_eventos/${DateTime.now().millisecondsSinceEpoch}.jpg');
 
       await storageReference.putFile(pickedFile);
 
@@ -65,7 +64,11 @@ class EventsManagementScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Manejo de eventos'),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'Manejo de eventos',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF9E0044),
         ),
         body: StreamBuilder<QuerySnapshot>(
@@ -170,7 +173,8 @@ class EventsManagementScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
-                    decoration: const InputDecoration(labelText: 'Nuevo Nombre'),
+                    decoration:
+                        const InputDecoration(labelText: 'Nuevo Nombre'),
                     onChanged: (value) {
                       newName = value;
                     },
@@ -225,8 +229,8 @@ class EventsManagementScreen extends StatelessWidget {
                     ),
                   ElevatedButton(
                     onPressed: () async {
-                      final pickedFile =
-                          await ImagePicker().pickImage(source: ImageSource.gallery);
+                      final pickedFile = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
                       if (pickedFile != null) {
                         setState(() {
                           newImageUrl = pickedFile.path;
