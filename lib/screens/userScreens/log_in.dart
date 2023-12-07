@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
-import 'package:avu/adminScreens/bottom.dart';
-import 'package:avu/screens/bottom.dart';
+import 'package:avu/screens/adminScreens/bottom.dart';
+import 'package:avu/screens/userScreens/bottom.dart';
 import 'package:avu/screens/camera.dart';
-import 'package:avu/screens/password.dart';
+import 'package:avu/screens/userScreens/password.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -164,9 +164,7 @@ class _LogInState extends State<LogIn> {
 
                         if (enteredEmail == 'admin@gmail.com' &&
                             enteredPassword == 'admin123456') {
-                          // Navigate to the admin screen
-                          // Replace 'AdminScreen' with the screen for admin users
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => const BottomAdmin()),
                           );
@@ -181,9 +179,9 @@ class _LogInState extends State<LogIn> {
                             final user = userCredential.user;
 
                             if (user != null) {
-                              Navigator.of(context).pushReplacement(
+                              Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => const BottomUser()),
+                                    builder: (context) => const BottomUserScreen()),
                               );
                             }
                           } catch (e) {
@@ -192,10 +190,10 @@ class _LogInState extends State<LogIn> {
                             if (e is FirebaseAuthException) {
                               if (e.code == 'user-not-found') {
                                 errorMessage =
-                                    'User not found. Please register first.';
+                                    'Usuario no encontrado. Registrese primero.';
                               } else if (e.code == 'wrong-password') {
                                 errorMessage =
-                                    'Incorrect password. Please try again.';
+                                    'Contraseña incorrecta. Intentelo de nuevo.';
                               }
                             }
 
@@ -204,7 +202,7 @@ class _LogInState extends State<LogIn> {
                                 content: Text(errorMessage),
                               ),
                             );
-                            print('Error during login: $e');
+                            print('Error : $e');
                           }
                         }
                       },
@@ -226,7 +224,7 @@ class _LogInState extends State<LogIn> {
                     width: screenWidth * 0.75,
                     child: ElevatedButton(
                       onPressed: () async {
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => const Camera()),
                         );

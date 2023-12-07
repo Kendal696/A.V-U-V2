@@ -1,8 +1,8 @@
-import 'package:avu/adminScreens/addEvents.dart';
-import 'package:avu/adminScreens/addFaqs.dart';
-import 'package:avu/adminScreens/faqsSuggestions.dart';
-import 'package:avu/screens/home.dart';
-import 'package:avu/screens/settings.dart';
+import 'package:avu/screens/adminScreens/addEvents.dart';
+import 'package:avu/screens/adminScreens/addFaqs.dart';
+import 'package:avu/screens/adminScreens/faqsSuggestions.dart';
+import 'package:avu/screens/userScreens/home.dart';
+import 'package:avu/screens/userScreens/settings.dart';
 import 'package:flutter/material.dart';
 
  // Import the ImageUpload screen

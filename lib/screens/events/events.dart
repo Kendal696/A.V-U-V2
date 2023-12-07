@@ -1,9 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:avu/screens/events/eventsDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class Events extends StatefulWidget {
   const Events({super.key});
@@ -19,6 +20,7 @@ class _EventsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
+      
       stream: eventsCollection.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -55,13 +57,11 @@ class _EventsState extends State<Events> {
 
               return GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
+                  Navigator.push(
+                    context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return EventDetailScreen(
-                            imageUrl: imageUrl, formUrl: formUrl);
-                      },
-                    ),
+                      builder: (context) => EventDetailScreen(imageUrl: imageUrl, formUrl: formUrl,)
+                      )
                   );
                 },
                 child: Container(
@@ -173,50 +173,3 @@ class _EventsState extends State<Events> {
   }
 }
 
-class EventDetailScreen extends StatelessWidget {
-  final String imageUrl;
-  final String? formUrl;
-
-  const EventDetailScreen({super.key, required this.imageUrl, this.formUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detalles del evento'),
-        backgroundColor: const Color(0xFF9E0044),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            height: 600.0,
-          ),
-          if (formUrl != null)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  _launchInBrowserView(formUrl!);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF9E0044),
-                  shadowColor: Colors.transparent,
-                ),
-                child: const Text('Abrir Formulario'),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _launchInBrowserView(String formsURL) async {
-    Uri url = Uri.parse(formsURL);
-    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
-      throw Exception('Could not launch $url');
-    }
-  }
-}

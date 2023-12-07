@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, library_private_types_in_public_api
+// ignore_for_file: file_names, library_private_types_in_public_api, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,11 +40,18 @@ class _FAQsSuggestionsState extends State<FAQsSuggestions> {
               final faqSuggestion = faqsSuggestions[index];
               final question = faqSuggestion['question'] as String;
               final answer = faqSuggestion['answer'] as String;
+              final number = faqSuggestion['phoneNumber'] as String;
 
               return Card(
                 child: ListTile(
                   title: Text(question),
-                  subtitle: Text(answer),
+                   subtitle: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(answer),
+      if (number != null && number.isNotEmpty) Text(number),
+    ],
+  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

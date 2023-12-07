@@ -139,7 +139,6 @@ class SuggestionsScreen extends StatelessWidget {
                     
                     return;
                   }
-
                   String question = questionController.text;
                   String answer = answerController.text;
                   String phoneNumber = phoneController.text;

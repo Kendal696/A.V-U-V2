@@ -1,9 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api, sized_box_for_whitespace, use_build_context_synchronously
 
-import 'package:avu/screens/bottomVisitante.dart';
-import 'package:avu/screens/log_in.dart';
-import 'package:avu/screens/sign_up.dart';
+import 'package:avu/main.dart';
+import 'package:avu/screens/userScreens/bottomVisitante.dart';
+import 'package:avu/screens/userScreens/log_in.dart';
+import 'package:avu/screens/userScreens/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Welcome extends StatefulWidget {
@@ -67,7 +69,8 @@ class _WelcomeState extends State<Welcome> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LogIn()),
+                        MaterialPageRoute(builder: (context) => const LogIn(),
+                        settings: const RouteSettings(name: 'UsuarioHome')),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -99,20 +102,23 @@ class _WelcomeState extends State<Welcome> {
   child: ElevatedButton(
     onPressed: () async {
       try {
-        // Iniciar sesión con las credenciales predeterminadas
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: 'visitante@example.com',
           password: 'contraseña',
         );
 
-        // Después de iniciar sesión, navegar a la siguiente pantalla
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const BottomVisitante()),
+          MaterialPageRoute(builder: (context) => const BottomVisitanteScreen(),
+          settings: const RouteSettings(name: 'Visitante Home'),),
+          
         );
+        printCurrentRoutes(context);
+
       } catch (e) {
-        // Manejar errores de inicio de sesión (si es necesario)
-        print('Error al iniciar sesión: $e');
+        if (kDebugMode) {
+          print('Error al iniciar sesión: $e');
+        }
       }
     },
     style: ElevatedButton.styleFrom(

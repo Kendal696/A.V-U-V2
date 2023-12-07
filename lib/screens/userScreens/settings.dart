@@ -1,6 +1,7 @@
 import 'package:avu/main.dart';
-import 'package:avu/screens/cuenta.dart';
-import 'package:avu/screens/sugestions.dart';
+import 'package:avu/screens/userScreens/cuenta.dart';
+import 'package:avu/screens/userScreens/sugestions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
@@ -250,12 +251,14 @@ class _SettingsState extends State<Settings> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MainApp()),
+                            builder: (context) => const MainApp()
+                            ),
                       );
+                      await FirebaseAuth.instance.signOut();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF9E0044),

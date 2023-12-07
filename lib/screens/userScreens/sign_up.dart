@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
-import 'package:avu/screens/bottom.dart';
+import 'package:avu/screens/userScreens/bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -156,9 +156,9 @@ class _SignUpState extends State<SignUp> {
                           .set(userData);
 
                       // Si todo bien, lleva al homescreen
-                      Navigator.of(context).pushReplacement(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (context) => const BottomUser()),
+                            builder: (context) => const BottomUserScreen()),
                       );
                     } catch (e) {
                       // Errores handle

@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:avu/screens/new_password.dart';
+import 'package:avu/screens/userScreens/new_password.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

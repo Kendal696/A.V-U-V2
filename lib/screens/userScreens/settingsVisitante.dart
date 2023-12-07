@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:avu/main.dart';
-import 'package:avu/screens/sugestions.dart';
+import 'package:avu/screens/userScreens/sugestions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
-import 'package:avu/adminScreens/faqsM.dart';
+import 'package:avu/screens/adminScreens/faqsM.dart';
+import 'package:avu/main.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -127,11 +128,16 @@ class _AddFaqsState extends State<AddFaqs> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FAQsManagementScreen()),
-                  );
+                   Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => const FAQsManagementScreen(),
+    settings: const RouteSettings(name: 'FAQsManagementScreen'),
+  ),
+);
+                  printCurrentRoutes(context);
+                 
+
                 },
                 child: const Text(
                   'FAQs Management',

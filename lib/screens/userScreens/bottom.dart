@@ -1,10 +1,10 @@
 
 
-import 'package:avu/screens/faq.dart';
-import 'package:avu/screens/events.dart';
+import 'package:avu/screens/userScreens/faq.dart';
+import 'package:avu/screens/events/events.dart';
 
-import 'package:avu/screens/home.dart';
-import 'package:avu/screens/settings.dart';
+import 'package:avu/screens/userScreens/home.dart';
+import 'package:avu/screens/userScreens/settings.dart';
 import 'package:flutter/material.dart';
 
 
@@ -26,7 +26,6 @@ class BottomUserScreen extends StatefulWidget {
   State<BottomUserScreen> createState() =>
       _BottomUserScreenState();
 }
-
 
 class _BottomUserScreenState
     extends State<BottomUserScreen> {
@@ -80,8 +79,7 @@ class _BottomUserScreenState
           // Eventos
          Events(),
           // FAQS 
-          FAQ(),
-          
+          FAQ(),         
           // Pantalla de configuracion
           Settings(),
         ],

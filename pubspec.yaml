@@ -19,6 +19,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   voice_to_text: ^1.0.3
   
+  
   flutter:
     sdk: flutter
 

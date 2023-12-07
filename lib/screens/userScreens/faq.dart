@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:avu/screens/userScreens/bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -7,6 +9,7 @@ class FAQ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       
       body: SingleChildScrollView(
         child: Container(
